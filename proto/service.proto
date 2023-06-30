@@ -1,0 +1,11 @@
+syntax = "proto3";
+
+package continuum;
+option go_package="jormungandr/v2/proto/continuum";
+
+import "velocity.proto";
+
+
+service Continuum{
+  rpc VelocityCalculate(velo.Request) returns (velo.Result);
+}

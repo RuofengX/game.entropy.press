@@ -1,0 +1,27 @@
+syntax = "proto3";
+
+package velo;
+option go_package="jormungandr/v2/proto/velo";
+
+message Entity{
+  uint64 id = 1;
+  float x = 2;
+  float y = 3;
+  float x_v = 4;
+  float y_v = 5;
+  float x_a = 6;
+  float y_a = 7;
+}
+
+message Space{
+  repeated Entity entity = 1;
+}
+
+message Request{
+  uint32 nest_tick = 1;  // 一次调用多个tick
+  Space space = 2;
+}
+
+message Result{
+  repeated Space history = 1;  // 一次返回多个tick
+} 
