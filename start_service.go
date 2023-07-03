@@ -13,10 +13,12 @@ func main() {
 	// 开启监听
 	listen, err := net.Listen("tcp", Address)
 	if err != nil {
-		log.Fatalf("Failed to listen: %v", err)
+		log.Fatalf("!! Failed to listen: %v", err)
 	}
 
 	// 实例化服务
-	s := new(service.ContinuumService)
-	s.Start(listen)
+	s := new(service.Service)
+	log.Println("~~ 服务器启动")
+	
+	s.Start(listen, true)
 }

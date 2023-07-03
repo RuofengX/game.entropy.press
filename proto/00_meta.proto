@@ -1,0 +1,19 @@
+syntax = "proto3";
+
+package meta;
+option go_package="jormungandr/v2/proto/meta";
+
+import "10_time.proto";
+import "11_velocity.proto";
+
+message Entity{  // 一个模块计算所需的所有数据
+  uint64 id = 1;  // ID
+  oneof field{  // protobuf简陋的泛型
+    time.Time time = 2;  // 时间grpc_out
+    velo.Velocity velo = 3;  // 空间
+  } 
+}
+
+message Field{  // 对应一个特定的包含很多实体的场
+  repeated Entity entity = 1;
+}

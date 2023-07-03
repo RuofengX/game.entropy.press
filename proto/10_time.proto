@@ -1,0 +1,9 @@
+syntax = "proto3";
+
+package time;
+option go_package="jormungandr/v2/proto/time";
+
+message Time{
+  uint64 age = 1;
+  uint64 speed = 2;
+}

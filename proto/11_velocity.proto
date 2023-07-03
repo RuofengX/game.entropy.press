@@ -1,0 +1,13 @@
+syntax = "proto3";
+
+package velo;
+option go_package="jormungandr/v2/proto/velo";
+
+message Velocity{  // 运动的实体
+  float x = 1;
+  float y = 2;
+  float x_v = 3;
+  float y_v = 4;
+  float x_a = 5;
+  float y_a = 6;
+}

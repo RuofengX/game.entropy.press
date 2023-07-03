@@ -1,36 +1,53 @@
 package runner
 
 import (
+	ctum "jormungandr/v2/proto/continuum"
+	meta "jormungandr/v2/proto/meta"
 	velo "jormungandr/v2/proto/velo"
+	"jormungandr/v2/errors"
+
 )
 
-func tick(ent *velo.Entity) *velo.Entity {
-	rtn := new(velo.Entity)
-	rtn.Id = ent.Id
-	rtn.XV = ent.XV + ent.XA
-	rtn.YV = ent.YV + ent.YA
-	rtn.X = ent.X + ent.XV
-	rtn.Y = ent.Y + ent.YV
+type VelocityRunner struct{}
+
+func (r *VelocityRunner) tick(ent *meta.Entity) *meta.Entity {
+	vel := ent.GetVelo()
+	rtn := &(meta.Entity{
+		Id: ent.Id,
+		Field: &meta.Entity_Velo{
+			Velo: &velo.Velocity{
+				X:  vel.X + vel.XV,
+				Y:  vel.Y + vel.YV,
+				XV: vel.XV + vel.XA,
+				YV: vel.YV + vel.YA,
+				XA: 0,
+				YA: 0,
+			},
+		},
+	})
 	return rtn
 }
 
-func spaceTick(space *velo.Space) *velo.Space {
-	rtn := new(velo.Space)
+func (r *VelocityRunner) fieldTick(space *meta.Field) *meta.Field {
+	rtn := new(meta.Field)
 	for _, ent := range space.Entity {
-		rtn.Entity = append(rtn.Entity, tick(ent))
+		rtn.Entity = append(rtn.Entity, r.tick(ent))
 	}
 	return rtn
 }
 
-func VelocityHandle(req *velo.Request) *velo.Result {
+func (r *VelocityRunner) Handle(req *ctum.Request) (*ctum.Result, error) {
 	epoch := 1
 	limit := int(req.NestTick)
-	space := req.Space
-	rtn := new(velo.Result)
+	velo_field := req.GetField()
+	if velo_field == nil {
+		return nil, errors.RequestError 
+	}
+	rtn := new(ctum.Result)
 	for epoch <= limit {
-		space = spaceTick(space)
-		rtn.History = append(rtn.History, space)
+		velo_field = r.fieldTick(velo_field)
+		rtn.History = append(rtn.History, velo_field)
 		epoch += 1
 	}
-	return rtn
+	return rtn, nil
 }
