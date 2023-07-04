@@ -9,15 +9,17 @@ import (
 
 type TimeRunner struct{}
 
+// 单个实体碎片的tick方法
 func (r *TimeRunner) tick(ent *meta.Entity) *meta.Entity {
-	time_ent := ent.GetTime()
+	time_ent := ent.Time
 	rtn := &(meta.Entity{
-		Id: ent.Id,
-		Field: &meta.Entity_Time{
-			Time: &time.Time{
-				Age:   time_ent.Age + time_ent.Speed,
-				Speed: time_ent.Speed,
-			},
+		ID: ent.ID,
+		Time: &time.Fragment{
+			Age:   time_ent.Age + time_ent.Speed,
+			Speed: time_ent.Speed + time_ent.Delta.TimeA,
+			// Delta: &time.Delta{},  // 这里直接不写，delta对象自动置空
+		// 如果没必要，也不去创建同ID的其他属性
+		// 如果需要改变其他属性，则通过表象实现，尽可能将实现包装在自己的场中
 		},
 	})
 	return rtn

@@ -8,14 +8,14 @@ from typing import ClassVar as _ClassVar, Iterable as _Iterable, Mapping as _Map
 DESCRIPTOR: _descriptor.FileDescriptor
 
 class Entity(_message.Message):
-    __slots__ = ["id", "time", "velo"]
+    __slots__ = ["ID", "time", "velo"]
     ID_FIELD_NUMBER: _ClassVar[int]
     TIME_FIELD_NUMBER: _ClassVar[int]
     VELO_FIELD_NUMBER: _ClassVar[int]
-    id: int
-    time: _10_time_pb2.Time
-    velo: _11_velocity_pb2.Velocity
-    def __init__(self, id: _Optional[int] = ..., time: _Optional[_Union[_10_time_pb2.Time, _Mapping]] = ..., velo: _Optional[_Union[_11_velocity_pb2.Velocity, _Mapping]] = ...) -> None: ...
+    ID: int
+    time: _10_time_pb2.Fragment
+    velo: _11_velocity_pb2.Fragment
+    def __init__(self, ID: _Optional[int] = ..., time: _Optional[_Union[_10_time_pb2.Fragment, _Mapping]] = ..., velo: _Optional[_Union[_11_velocity_pb2.Fragment, _Mapping]] = ...) -> None: ...
 
 class Field(_message.Message):
     __slots__ = ["entity"]

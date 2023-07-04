@@ -20,21 +20,20 @@ const (
 	_ = protoimpl.EnforceVersion(protoimpl.MaxVersion - 20)
 )
 
-type Velocity struct {
+type Fragment struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	X  float32 `protobuf:"fixed32,1,opt,name=x,proto3" json:"x,omitempty"`
-	Y  float32 `protobuf:"fixed32,2,opt,name=y,proto3" json:"y,omitempty"`
-	XV float32 `protobuf:"fixed32,3,opt,name=x_v,json=xV,proto3" json:"x_v,omitempty"`
-	YV float32 `protobuf:"fixed32,4,opt,name=y_v,json=yV,proto3" json:"y_v,omitempty"`
-	XA float32 `protobuf:"fixed32,5,opt,name=x_a,json=xA,proto3" json:"x_a,omitempty"`
-	YA float32 `protobuf:"fixed32,6,opt,name=y_a,json=yA,proto3" json:"y_a,omitempty"`
+	Delta *Delta  `protobuf:"bytes,1,opt,name=delta,proto3" json:"delta,omitempty"`
+	X     float32 `protobuf:"fixed32,2,opt,name=x,proto3" json:"x,omitempty"`
+	Y     float32 `protobuf:"fixed32,3,opt,name=y,proto3" json:"y,omitempty"`
+	XV    float32 `protobuf:"fixed32,4,opt,name=x_v,json=xV,proto3" json:"x_v,omitempty"`
+	YV    float32 `protobuf:"fixed32,5,opt,name=y_v,json=yV,proto3" json:"y_v,omitempty"`
 }
 
-func (x *Velocity) Reset() {
-	*x = Velocity{}
+func (x *Fragment) Reset() {
+	*x = Fragment{}
 	if protoimpl.UnsafeEnabled {
 		mi := &file__11_velocity_proto_msgTypes[0]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
@@ -42,13 +41,13 @@ func (x *Velocity) Reset() {
 	}
 }
 
-func (x *Velocity) String() string {
+func (x *Fragment) String() string {
 	return protoimpl.X.MessageStringOf(x)
 }
 
-func (*Velocity) ProtoMessage() {}
+func (*Fragment) ProtoMessage() {}
 
-func (x *Velocity) ProtoReflect() protoreflect.Message {
+func (x *Fragment) ProtoReflect() protoreflect.Message {
 	mi := &file__11_velocity_proto_msgTypes[0]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
@@ -60,47 +59,95 @@ func (x *Velocity) ProtoReflect() protoreflect.Message {
 	return mi.MessageOf(x)
 }
 
-// Deprecated: Use Velocity.ProtoReflect.Descriptor instead.
-func (*Velocity) Descriptor() ([]byte, []int) {
+// Deprecated: Use Fragment.ProtoReflect.Descriptor instead.
+func (*Fragment) Descriptor() ([]byte, []int) {
 	return file__11_velocity_proto_rawDescGZIP(), []int{0}
 }
 
-func (x *Velocity) GetX() float32 {
+func (x *Fragment) GetDelta() *Delta {
+	if x != nil {
+		return x.Delta
+	}
+	return nil
+}
+
+func (x *Fragment) GetX() float32 {
 	if x != nil {
 		return x.X
 	}
 	return 0
 }
 
-func (x *Velocity) GetY() float32 {
+func (x *Fragment) GetY() float32 {
 	if x != nil {
 		return x.Y
 	}
 	return 0
 }
 
-func (x *Velocity) GetXV() float32 {
+func (x *Fragment) GetXV() float32 {
 	if x != nil {
 		return x.XV
 	}
 	return 0
 }
 
-func (x *Velocity) GetYV() float32 {
+func (x *Fragment) GetYV() float32 {
 	if x != nil {
 		return x.YV
 	}
 	return 0
 }
 
-func (x *Velocity) GetXA() float32 {
+type Delta struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	XA float32 `protobuf:"fixed32,1,opt,name=x_a,json=xA,proto3" json:"x_a,omitempty"`
+	YA float32 `protobuf:"fixed32,2,opt,name=y_a,json=yA,proto3" json:"y_a,omitempty"`
+}
+
+func (x *Delta) Reset() {
+	*x = Delta{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file__11_velocity_proto_msgTypes[1]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *Delta) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*Delta) ProtoMessage() {}
+
+func (x *Delta) ProtoReflect() protoreflect.Message {
+	mi := &file__11_velocity_proto_msgTypes[1]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use Delta.ProtoReflect.Descriptor instead.
+func (*Delta) Descriptor() ([]byte, []int) {
+	return file__11_velocity_proto_rawDescGZIP(), []int{1}
+}
+
+func (x *Delta) GetXA() float32 {
 	if x != nil {
 		return x.XA
 	}
 	return 0
 }
 
-func (x *Velocity) GetYA() float32 {
+func (x *Delta) GetYA() float32 {
 	if x != nil {
 		return x.YA
 	}
@@ -111,16 +158,19 @@ var File__11_velocity_proto protoreflect.FileDescriptor
 
 var file__11_velocity_proto_rawDesc = []byte{
 	0x0a, 0x11, 0x31, 0x31, 0x5f, 0x76, 0x65, 0x6c, 0x6f, 0x63, 0x69, 0x74, 0x79, 0x2e, 0x70, 0x72,
-	0x6f, 0x74, 0x6f, 0x12, 0x04, 0x76, 0x65, 0x6c, 0x6f, 0x22, 0x6a, 0x0a, 0x08, 0x56, 0x65, 0x6c,
-	0x6f, 0x63, 0x69, 0x74, 0x79, 0x12, 0x0c, 0x0a, 0x01, 0x78, 0x18, 0x01, 0x20, 0x01, 0x28, 0x02,
-	0x52, 0x01, 0x78, 0x12, 0x0c, 0x0a, 0x01, 0x79, 0x18, 0x02, 0x20, 0x01, 0x28, 0x02, 0x52, 0x01,
-	0x79, 0x12, 0x0f, 0x0a, 0x03, 0x78, 0x5f, 0x76, 0x18, 0x03, 0x20, 0x01, 0x28, 0x02, 0x52, 0x02,
-	0x78, 0x56, 0x12, 0x0f, 0x0a, 0x03, 0x79, 0x5f, 0x76, 0x18, 0x04, 0x20, 0x01, 0x28, 0x02, 0x52,
-	0x02, 0x79, 0x56, 0x12, 0x0f, 0x0a, 0x03, 0x78, 0x5f, 0x61, 0x18, 0x05, 0x20, 0x01, 0x28, 0x02,
-	0x52, 0x02, 0x78, 0x41, 0x12, 0x0f, 0x0a, 0x03, 0x79, 0x5f, 0x61, 0x18, 0x06, 0x20, 0x01, 0x28,
-	0x02, 0x52, 0x02, 0x79, 0x41, 0x42, 0x1b, 0x5a, 0x19, 0x6a, 0x6f, 0x72, 0x6d, 0x75, 0x6e, 0x67,
-	0x61, 0x6e, 0x64, 0x72, 0x2f, 0x76, 0x32, 0x2f, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x2f, 0x76, 0x65,
-	0x6c, 0x6f, 0x62, 0x06, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x33,
+	0x6f, 0x74, 0x6f, 0x12, 0x04, 0x76, 0x65, 0x6c, 0x6f, 0x22, 0x6b, 0x0a, 0x08, 0x46, 0x72, 0x61,
+	0x67, 0x6d, 0x65, 0x6e, 0x74, 0x12, 0x21, 0x0a, 0x05, 0x64, 0x65, 0x6c, 0x74, 0x61, 0x18, 0x01,
+	0x20, 0x01, 0x28, 0x0b, 0x32, 0x0b, 0x2e, 0x76, 0x65, 0x6c, 0x6f, 0x2e, 0x44, 0x65, 0x6c, 0x74,
+	0x61, 0x52, 0x05, 0x64, 0x65, 0x6c, 0x74, 0x61, 0x12, 0x0c, 0x0a, 0x01, 0x78, 0x18, 0x02, 0x20,
+	0x01, 0x28, 0x02, 0x52, 0x01, 0x78, 0x12, 0x0c, 0x0a, 0x01, 0x79, 0x18, 0x03, 0x20, 0x01, 0x28,
+	0x02, 0x52, 0x01, 0x79, 0x12, 0x0f, 0x0a, 0x03, 0x78, 0x5f, 0x76, 0x18, 0x04, 0x20, 0x01, 0x28,
+	0x02, 0x52, 0x02, 0x78, 0x56, 0x12, 0x0f, 0x0a, 0x03, 0x79, 0x5f, 0x76, 0x18, 0x05, 0x20, 0x01,
+	0x28, 0x02, 0x52, 0x02, 0x79, 0x56, 0x22, 0x29, 0x0a, 0x05, 0x44, 0x65, 0x6c, 0x74, 0x61, 0x12,
+	0x0f, 0x0a, 0x03, 0x78, 0x5f, 0x61, 0x18, 0x01, 0x20, 0x01, 0x28, 0x02, 0x52, 0x02, 0x78, 0x41,
+	0x12, 0x0f, 0x0a, 0x03, 0x79, 0x5f, 0x61, 0x18, 0x02, 0x20, 0x01, 0x28, 0x02, 0x52, 0x02, 0x79,
+	0x41, 0x42, 0x1b, 0x5a, 0x19, 0x6a, 0x6f, 0x72, 0x6d, 0x75, 0x6e, 0x67, 0x61, 0x6e, 0x64, 0x72,
+	0x2f, 0x76, 0x32, 0x2f, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x2f, 0x76, 0x65, 0x6c, 0x6f, 0x62, 0x06,
+	0x70, 0x72, 0x6f, 0x74, 0x6f, 0x33,
 }
 
 var (
@@ -135,16 +185,18 @@ func file__11_velocity_proto_rawDescGZIP() []byte {
 	return file__11_velocity_proto_rawDescData
 }
 
-var file__11_velocity_proto_msgTypes = make([]protoimpl.MessageInfo, 1)
+var file__11_velocity_proto_msgTypes = make([]protoimpl.MessageInfo, 2)
 var file__11_velocity_proto_goTypes = []interface{}{
-	(*Velocity)(nil), // 0: velo.Velocity
+	(*Fragment)(nil), // 0: velo.Fragment
+	(*Delta)(nil),    // 1: velo.Delta
 }
 var file__11_velocity_proto_depIdxs = []int32{
-	0, // [0:0] is the sub-list for method output_type
-	0, // [0:0] is the sub-list for method input_type
-	0, // [0:0] is the sub-list for extension type_name
-	0, // [0:0] is the sub-list for extension extendee
-	0, // [0:0] is the sub-list for field type_name
+	1, // 0: velo.Fragment.delta:type_name -> velo.Delta
+	1, // [1:1] is the sub-list for method output_type
+	1, // [1:1] is the sub-list for method input_type
+	1, // [1:1] is the sub-list for extension type_name
+	1, // [1:1] is the sub-list for extension extendee
+	0, // [0:1] is the sub-list for field type_name
 }
 
 func init() { file__11_velocity_proto_init() }
@@ -154,7 +206,19 @@ func file__11_velocity_proto_init() {
 	}
 	if !protoimpl.UnsafeEnabled {
 		file__11_velocity_proto_msgTypes[0].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*Velocity); i {
+			switch v := v.(*Fragment); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file__11_velocity_proto_msgTypes[1].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*Delta); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -172,7 +236,7 @@ func file__11_velocity_proto_init() {
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: file__11_velocity_proto_rawDesc,
 			NumEnums:      0,
-			NumMessages:   1,
+			NumMessages:   2,
 			NumExtensions: 0,
 			NumServices:   0,
 		},

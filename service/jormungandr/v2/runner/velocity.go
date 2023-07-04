@@ -1,11 +1,10 @@
 package runner
 
 import (
+	"jormungandr/v2/errors"
 	ctum "jormungandr/v2/proto/continuum"
 	meta "jormungandr/v2/proto/meta"
 	velo "jormungandr/v2/proto/velo"
-	"jormungandr/v2/errors"
-
 )
 
 type VelocityRunner struct{}
@@ -13,16 +12,12 @@ type VelocityRunner struct{}
 func (r *VelocityRunner) tick(ent *meta.Entity) *meta.Entity {
 	vel := ent.GetVelo()
 	rtn := &(meta.Entity{
-		Id: ent.Id,
-		Field: &meta.Entity_Velo{
-			Velo: &velo.Velocity{
-				X:  vel.X + vel.XV,
-				Y:  vel.Y + vel.YV,
-				XV: vel.XV + vel.XA,
-				YV: vel.YV + vel.YA,
-				XA: 0,
-				YA: 0,
-			},
+		ID: ent.ID,
+		Velo: &velo.Fragment{
+			X:  vel.X + vel.XV,
+			Y:  vel.Y + vel.YV,
+			XV: vel.XV + vel.Delta.XA,
+			YV: vel.YV + vel.Delta.YA,
 		},
 	})
 	return rtn
@@ -41,7 +36,7 @@ func (r *VelocityRunner) Handle(req *ctum.Request) (*ctum.Result, error) {
 	limit := int(req.NestTick)
 	velo_field := req.GetField()
 	if velo_field == nil {
-		return nil, errors.RequestError 
+		return nil, errors.RequestError
 	}
 	rtn := new(ctum.Result)
 	for epoch <= limit {

@@ -3,7 +3,12 @@ syntax = "proto3";
 package time;
 option go_package="jormungandr/v2/proto/time";
 
-message Time{
-  uint64 age = 1;
-  uint64 speed = 2;
+message Fragment{
+  Delta delta = 1;
+  uint64 age = 2;
+  uint64 speed = 3;
+}
+
+message Delta{
+  uint64 time_a = 1;
 }
