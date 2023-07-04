@@ -32,4 +32,4 @@ class DictDatabase(Database, UserDict[int, Space]):
         return self[time_index]
 
     def set_tick(self, space: Space) -> None:
-        self[space.time_index] = space
+        self[space.age] = space

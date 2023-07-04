@@ -3,15 +3,15 @@ syntax = "proto3";
 package continuum;
 option go_package="jormungandr/v2/proto/continuum";
 
-import "00_meta.proto";
+import "base.proto";
 
 message Request{
   uint32 nest_tick = 1;  // 一次调用多个tick
-  meta.Field field = 2;  // 场，包含所有实体
+  base.Field field = 2;  // 场，包含所有实体
 }
 
 message Result{
-  repeated meta.Field history = 1;  // 一次返回多个tick
+  repeated base.Field history = 1;  // 一次返回多个tick
 } 
 
 service Continuum{

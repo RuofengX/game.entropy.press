@@ -3,15 +3,15 @@ package runner
 import (
 	"jormungandr/v2/errors"
 	ctum "jormungandr/v2/proto/continuum"
-	meta "jormungandr/v2/proto/meta"
+	"jormungandr/v2/proto/base"
 	velo "jormungandr/v2/proto/velo"
 )
 
 type VelocityRunner struct{}
 
-func (r *VelocityRunner) tick(ent *meta.Entity) *meta.Entity {
+func (r *VelocityRunner) tick(ent *base.Entity) *base.Entity {
 	vel := ent.GetVelo()
-	rtn := &(meta.Entity{
+	rtn := &(base.Entity{
 		ID: ent.ID,
 		Velo: &velo.Fragment{
 			X:  vel.X + vel.XV,
@@ -23,8 +23,8 @@ func (r *VelocityRunner) tick(ent *meta.Entity) *meta.Entity {
 	return rtn
 }
 
-func (r *VelocityRunner) fieldTick(space *meta.Field) *meta.Field {
-	rtn := new(meta.Field)
+func (r *VelocityRunner) fieldTick(space *base.Field) *base.Field {
+	rtn := new(base.Field)
 	for _, ent := range space.Entity {
 		rtn.Entity = append(rtn.Entity, r.tick(ent))
 	}

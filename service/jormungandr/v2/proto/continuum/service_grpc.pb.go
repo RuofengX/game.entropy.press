@@ -2,7 +2,7 @@
 // versions:
 // - protoc-gen-go-grpc v1.2.0
 // - protoc             v4.23.3
-// source: 99_service.proto
+// source: service.proto
 
 package continuum
 
@@ -137,5 +137,5 @@ var Continuum_ServiceDesc = grpc.ServiceDesc{
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
-	Metadata: "99_service.proto",
+	Metadata: "service.proto",
 }
