@@ -3,7 +3,7 @@ syntax = "proto3";
 package continuum;
 option go_package="jormungandr/v2/proto/continuum";
 
-import "base.proto";
+import "essence/base.proto";
 
 message Request{
   uint32 nest_tick = 1;  // 一次调用多个tick

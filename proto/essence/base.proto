@@ -3,8 +3,8 @@ syntax = "proto3";
 package base;
 option go_package="jormungandr/v2/proto/base";
 
-import "time.proto";
-import "velocity.proto";
+import "essence/time.proto";
+import "essence/velocity.proto";
 
 message Entity{  // 一个模块计算所需的所有数据
   uint64 ID = 1;  // ID

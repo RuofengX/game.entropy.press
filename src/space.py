@@ -1,10 +1,9 @@
 import json
-
-from typing import overload
 from collections import UserDict
-from proto.base_pb2 import Entity, Field
+from typing import overload
 
-from proto import time_pb2
+from essence import time_pb2
+from essence.base_pb2 import Entity
 
 
 class Space(UserDict[int, Entity]):
@@ -26,6 +25,7 @@ class Space(UserDict[int, Entity]):
                 time=time_pb2.Fragment(delta=time_pb2.Delta(time_a=1)),  # 第零个  # 第一推动
             ),
         )
+        self.all_field = dict(self[0].ListFields())
 
     @property
     def age(self) -> int:
@@ -65,6 +65,14 @@ class Space(UserDict[int, Entity]):
         """保存到绑定的记录中"""
         ...
 
+    # def _sepreate(self) -> Iterable[Field]:
+    #     """将自身包含的实体拆解为多个场
+    #     返回一个包含了这些场的迭代器
+    #     """
+    #     f_list: list[Field] = []
+    #     for i, ent in self.items():
+    #         ent.ListFields()
+
 
 class Continuum:
     # TODO:
@@ -86,3 +94,8 @@ class Continuum:
 
     def _merge_many(self, *tick):
         ...
+
+
+if __name__ == "__main__":
+    s = Space()
+    print(s.all_field)

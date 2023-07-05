@@ -1,5 +1,5 @@
-import time_pb2 as _time_pb2
-import velocity_pb2 as _velocity_pb2
+from essence import time_pb2 as _time_pb2
+from essence import velocity_pb2 as _velocity_pb2
 from google.protobuf.internal import containers as _containers
 from google.protobuf import descriptor as _descriptor
 from google.protobuf import message as _message
