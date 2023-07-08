@@ -1,7 +1,6 @@
-import asyncio as aio
 import json
 from collections import UserDict
-from typing import Self, overload
+from typing import overload
 
 from essence import time_pb2
 from essence.base_pb2 import Entity, Field
