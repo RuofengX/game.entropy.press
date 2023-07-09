@@ -8,10 +8,10 @@ func (e RuntimeError) Error() string {
 
 const (
 	// 定义各类运行时错误
-	RequestTickTooBigError   RuntimeError = "Request too many tick. Consider use multiple requests instead."
-	EntityNotContainFragment RuntimeError = "The request entity not contain the fragment of this endpoint."
-	ValueError               RuntimeError = "Value error."
-	RequestError             RuntimeError = "Request value error."
-	NotImplementError        RuntimeError = "Not implement."
-	BaseException            RuntimeError = "Unknown error."
+	RequestTickTooBigError RuntimeError = "Request too many tick. Consider use multiple requests instead."
+	ValueError             RuntimeError = "Value error."
+	RequestError           RuntimeError = "Request value error."
+	NotImplementError      RuntimeError = "Not implement."
+	TickError              RuntimeError = "Error while running tick."
+	BaseException          RuntimeError = "Unknown error."
 )

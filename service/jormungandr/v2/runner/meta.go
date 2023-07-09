@@ -10,7 +10,7 @@ import (
 
 // 一个系统的执行器的接口
 type Tickable interface {
-	tick(ent *base.Entity) *base.Entity  // 一个实体的tick
+	tick(ent *base.Entity) *base.Entity // 一个实体的tick
 }
 
 // 顺序对Field全部的实体进行tick
@@ -18,28 +18,28 @@ func SyncFieldTick(self Tickable, space *base.Field) *base.Field {
 
 	rtn := new(base.Field)
 	for _, ent := range space.Entity {
-		rtn.Entity = append(rtn.Entity, self.tick(ent))
+		result := self.tick(ent)
+		rtn.Entity = append(rtn.Entity, result)
 	}
 	return rtn
 }
 
 // 对一个Field全部的实体多进程并发tick
 func AsyncFieldTick(self Tickable, space *base.Field) *base.Field {
-	channel := make(chan *base.Entity)
+	channel := make(chan *base.Entity, 16)
 	var entities []*base.Entity
 	wg := &sync.WaitGroup{}
 
-
-	go func(){
-		for ent := range channel{
+	go func() {
+		for ent := range channel {
 			entities = append(entities, ent)
+			wg.Done()
 		}
 	}()
 
 	for _, ent := range space.Entity {
 		wg.Add(1)
 		go func(ent *base.Entity) {
-			defer wg.Done()
 			channel <- self.tick(ent)
 		}(ent)
 	}
@@ -51,12 +51,12 @@ func AsyncFieldTick(self Tickable, space *base.Field) *base.Field {
 	}
 }
 
-func Handle(self Tickable, req *ctum.Request) (*ctum.Result, error) {
+func Handle(self Tickable, req *ctum.Request) (*ctum.Result) {
 	epoch := 1
 	limit := int(req.NestTick)
 	fragment_field := req.GetField()
 	if fragment_field == nil {
-		return nil, errors.RequestError
+		panic(errors.RequestError)
 	}
 	rtn := new(ctum.Result)
 	for epoch <= limit {
@@ -64,7 +64,7 @@ func Handle(self Tickable, req *ctum.Request) (*ctum.Result, error) {
 		rtn.History = append(rtn.History, fragment_field)
 		epoch += 1
 	}
-	return rtn, nil
+	return rtn
 }
 
 // 编译时检查

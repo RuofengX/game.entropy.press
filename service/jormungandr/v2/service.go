@@ -1,11 +1,10 @@
 package jormungandr
 
 import (
-	"github.com/grpc-ecosystem/go-grpc-middleware/v2/interceptors/recovery"
 	"golang.org/x/net/context"
 	"google.golang.org/grpc"
-	"google.golang.org/grpc/reflection"
 	"google.golang.org/grpc/codes"
+	"google.golang.org/grpc/reflection"
 	"google.golang.org/grpc/status"
 	"net"
 
@@ -46,41 +45,65 @@ func (s Service) preParse(in *ctum.Request) error {
 func (s Service) TimePass(ctx context.Context, in *ctum.Request) (*ctum.Result, error) {
 	err := s.preParse(in)
 	if err != nil {
-		return nil, err
+		return nil, errors.RequestError
 	}
-	return runner.Handle(s.time_runner, in)
+	return runner.Handle(s.time_runner, in), nil
 
 }
 
 // 处理位移
 func (s Service) VelocityMove(ctx context.Context, in *ctum.Request) (*ctum.Result, error) {
-	return runner.Handle(s.velo_runner, in)
+	err := s.preParse(in)
+	if err != nil {
+		return nil, errors.RequestError
+	}
+	return runner.Handle(s.velo_runner, in), nil
 }
 
 // ...
 // 在这里添加其他接口
 // ...
 
+// 中间件函数
+func RecoveryInterceptor(ctx context.Context, req interface{}, info *grpc.UnaryServerInfo, handler grpc.UnaryHandler) (interface{}, error) {
+	defer func() {
+		if r := recover(); r != nil {
+			// 将 panic 转换为 gRPC 错误
+			err := status.Errorf(codes.Internal, "Internal server error")
+			panic(err)
+		}
+	}()
+
+	// 调用实际的 gRPC 处理程序
+	return handler(ctx, req)
+}
+
+// 流中间件函数
+func StreamRecoveryInterceptor(srv interface{}, ss grpc.ServerStream, info *grpc.StreamServerInfo, handler grpc.StreamHandler) error {
+	defer func() {
+		if r := recover(); r != nil {
+			// 将 panic 转换为 gRPC 错误
+			err := status.Errorf(codes.Internal, "Internal server error")
+			panic(err)
+		}
+	}()
+
+	// 调用实际的 gRPC 处理程序
+	return handler(srv, ss)
+}
 
 // 启动并阻塞运行
 func (s Service) Start(lis net.Listener, use_reflection bool) {
-	grpcPanicRecoveryHandler := func(p any) (err error) {
-			return status.Errorf(codes.Internal, "%s", p)
-		}
 
 	server := grpc.NewServer(
-		// 加入捕获panic的中间件
-		// TODO: 并没有实现功能
-		grpc.ChainUnaryInterceptor(
-			recovery.UnaryServerInterceptor(recovery.WithRecoveryHandler(grpcPanicRecoveryHandler)),
-		),
-		grpc.ChainStreamInterceptor(
-			recovery.StreamServerInterceptor(recovery.WithRecoveryHandler(grpcPanicRecoveryHandler)),
-		),
+		grpc.UnaryInterceptor(RecoveryInterceptor),
+		grpc.StreamInterceptor(StreamRecoveryInterceptor),
 	)
+
 	ctum.RegisterContinuumServer(server, s)
 	if use_reflection {
 		reflection.Register(server)
 	}
+
 	server.Serve(lis)
 }
