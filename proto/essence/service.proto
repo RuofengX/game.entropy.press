@@ -12,10 +12,11 @@ message Request{
 
 message Result{
   repeated base.Field history = 1;  // 一次返回多个tick
-} 
+}
 
 service Continuum{
   rpc TimePass(Request) returns (Result);
   rpc VelocityMove(Request) returns (Result);
   // TODO: 使用stream计数，减少返回延迟
+  // TODO: 新rpc，处理双向流，只传输必要的数据，一步到位
 }
