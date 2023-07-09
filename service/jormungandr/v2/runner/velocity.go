@@ -9,7 +9,7 @@ type VelocityRunner struct {
 	Tickable
 }
 
-func (r *VelocityRunner) tick(ent *base.Entity) *base.Entity {
+func (r *VelocityRunner) tick(ent *base.Entity) (*base.Entity) {
 	vel := ent.GetVelo()
 	rtn := &(base.Entity{
 		ID: ent.ID,

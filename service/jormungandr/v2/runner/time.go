@@ -11,7 +11,7 @@ type TimeRunner struct {
 }
 
 // 单个实体碎片的tick方法
-func (r *TimeRunner) tick(ent *base.Entity) *base.Entity {
+func (r *TimeRunner) tick(ent *base.Entity) (*base.Entity) {
 	time_ent := ent.Time
 	rtn := &(base.Entity{
 		ID: ent.ID,

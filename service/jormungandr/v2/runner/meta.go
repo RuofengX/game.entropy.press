@@ -10,11 +10,12 @@ import (
 
 // 一个系统的执行器的接口
 type Tickable interface {
-	tick(ent *base.Entity) *base.Entity // 一个实体的tick
+	tick(ent *base.Entity) *base.Entity  // 一个实体的tick
 }
 
 // 顺序对Field全部的实体进行tick
 func SyncFieldTick(self Tickable, space *base.Field) *base.Field {
+
 	rtn := new(base.Field)
 	for _, ent := range space.Entity {
 		rtn.Entity = append(rtn.Entity, self.tick(ent))
@@ -24,21 +25,26 @@ func SyncFieldTick(self Tickable, space *base.Field) *base.Field {
 
 // 对一个Field全部的实体多进程并发tick
 func AsyncFieldTick(self Tickable, space *base.Field) *base.Field {
+	channel := make(chan *base.Entity)
 	var entities []*base.Entity
 	wg := &sync.WaitGroup{}
 
-	mux := new(sync.Mutex)
+
+	go func(){
+		for ent := range channel{
+			entities = append(entities, ent)
+		}
+	}()
 
 	for _, ent := range space.Entity {
 		wg.Add(1)
 		go func(ent *base.Entity) {
-			mux.Lock()
-			defer mux.Unlock()
 			defer wg.Done()
-			entities = append(entities, self.tick(ent))
+			channel <- self.tick(ent)
 		}(ent)
 	}
 	wg.Wait()
+	close(channel)
 
 	return &base.Field{
 		Entity: entities,
