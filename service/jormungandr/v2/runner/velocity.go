@@ -2,27 +2,16 @@ package runner
 
 import (
 	"jormungandr/v2/proto/base"
-	velo "jormungandr/v2/proto/velo"
 )
 
-type VelocityRunner struct {
-	Tickable
-}
+type VelocityRunner struct {}
 
-func (r *VelocityRunner) tick(ent *base.Entity) (*base.Entity) {
-	vel := ent.GetVelo()
-	rtn := &(base.Entity{
-		ID: ent.ID,
-		Velo: &velo.Fragment{
-			X:  vel.X + vel.XV,
-			Y:  vel.Y + vel.YV,
-			XV: vel.XV + vel.Delta.XA,
-			YV: vel.YV + vel.Delta.YA,
-			Delta: &velo.Delta{
-				XA: 0,
-				YA: 0,
-			},
-		},
-	})
-	return rtn
+func (r *VelocityRunner) tick(ent *base.Entity) *base.Entity {
+	ent.Velo.X = ent.Velo.X + ent.Velo.XV
+	ent.Velo.Y = ent.Velo.Y + ent.Velo.YV
+	ent.Velo.XV = ent.Velo.XV + ent.VeloD.XA
+	ent.Velo.YV = ent.Velo.YV + ent.VeloD.YA
+	ent.VeloD.XA = 0
+	ent.VeloD.YA = 0
+	return ent
 }

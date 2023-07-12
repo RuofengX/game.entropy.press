@@ -19,40 +19,26 @@ class _ServicerContext(grpc.ServicerContext, grpc.aio.ServicerContext):  # type:
 
 class ContinuumStub:
     def __init__(self, channel: typing.Union[grpc.Channel, grpc.aio.Channel]) -> None: ...
-    TimePass: grpc.UnaryUnaryMultiCallable[
+    Tick: grpc.UnaryUnaryMultiCallable[
         essence.service_pb2.Request,
         essence.service_pb2.Result,
     ]
-    VelocityMove: grpc.UnaryUnaryMultiCallable[
-        essence.service_pb2.Request,
-        essence.service_pb2.Result,
-    ]
-    """TODO: 使用stream计数，减少返回延迟"""
+    """单个Tick，一次性发送/返回"""
 
 class ContinuumAsyncStub:
-    TimePass: grpc.aio.UnaryUnaryMultiCallable[
+    Tick: grpc.aio.UnaryUnaryMultiCallable[
         essence.service_pb2.Request,
         essence.service_pb2.Result,
     ]
-    VelocityMove: grpc.aio.UnaryUnaryMultiCallable[
-        essence.service_pb2.Request,
-        essence.service_pb2.Result,
-    ]
-    """TODO: 使用stream计数，减少返回延迟"""
+    """单个Tick，一次性发送/返回"""
 
 class ContinuumServicer(metaclass=abc.ABCMeta):
     @abc.abstractmethod
-    def TimePass(
-        self,
-        request: essence.service_pb2.Request,
-        context: _ServicerContext,
-    ) -> typing.Union[essence.service_pb2.Result, collections.abc.Awaitable[essence.service_pb2.Result]]: ...
-    @abc.abstractmethod
-    def VelocityMove(
+    def Tick(
         self,
         request: essence.service_pb2.Request,
         context: _ServicerContext,
     ) -> typing.Union[essence.service_pb2.Result, collections.abc.Awaitable[essence.service_pb2.Result]]:
-        """TODO: 使用stream计数，减少返回延迟"""
+        """单个Tick，一次性发送/返回"""
 
 def add_ContinuumServicer_to_server(servicer: ContinuumServicer, server: typing.Union[grpc.Server, grpc.aio.Server]) -> None: ...

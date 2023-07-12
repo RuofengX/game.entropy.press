@@ -14,7 +14,7 @@ _sym_db = _symbol_database.Default()
 from essence import base_pb2 as essence_dot_base__pb2
 
 
-DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\x15\x65ssence/service.proto\x12\tcontinuum\x1a\x12\x65ssence/base.proto\"8\n\x07Request\x12\x11\n\tnest_tick\x18\x01 \x01(\r\x12\x1a\n\x05\x66ield\x18\x02 \x01(\x0b\x32\x0b.base.Field\"&\n\x06Result\x12\x1c\n\x07history\x18\x01 \x03(\x0b\x32\x0b.base.Field2u\n\tContinuum\x12\x31\n\x08TimePass\x12\x12.continuum.Request\x1a\x11.continuum.Result\x12\x35\n\x0cVelocityMove\x12\x12.continuum.Request\x1a\x11.continuum.ResultB Z\x1ejormungandr/v2/proto/continuumb\x06proto3')
+DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\x15\x65ssence/service.proto\x12\tcontinuum\x1a\x12\x65ssence/base.proto\"8\n\x07Request\x12\x11\n\titeration\x18\x01 \x01(\r\x12\x1a\n\x05space\x18\x02 \x01(\x0b\x32\x0b.base.Space\"&\n\x06Result\x12\x1c\n\x07history\x18\x01 \x03(\x0b\x32\x0b.base.Space2:\n\tContinuum\x12-\n\x04Tick\x12\x12.continuum.Request\x1a\x11.continuum.ResultB Z\x1ejormungandr/v2/proto/continuumb\x06proto3')
 
 _globals = globals()
 _builder.BuildMessageAndEnumDescriptors(DESCRIPTOR, _globals)
@@ -28,5 +28,5 @@ if _descriptor._USE_C_DESCRIPTORS == False:
   _globals['_RESULT']._serialized_start=114
   _globals['_RESULT']._serialized_end=152
   _globals['_CONTINUUM']._serialized_start=154
-  _globals['_CONTINUUM']._serialized_end=271
+  _globals['_CONTINUUM']._serialized_end=212
 # @@protoc_insertion_point(module_scope)

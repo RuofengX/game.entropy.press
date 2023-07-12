@@ -16,23 +16,13 @@ import essence.service_pb2
 class ContinuumBase(abc.ABC):
 
     @abc.abstractmethod
-    async def TimePass(self, stream: 'grpclib.server.Stream[essence.service_pb2.Request, essence.service_pb2.Result]') -> None:
-        pass
-
-    @abc.abstractmethod
-    async def VelocityMove(self, stream: 'grpclib.server.Stream[essence.service_pb2.Request, essence.service_pb2.Result]') -> None:
+    async def Tick(self, stream: 'grpclib.server.Stream[essence.service_pb2.Request, essence.service_pb2.Result]') -> None:
         pass
 
     def __mapping__(self) -> typing.Dict[str, grpclib.const.Handler]:
         return {
-            '/continuum.Continuum/TimePass': grpclib.const.Handler(
-                self.TimePass,
-                grpclib.const.Cardinality.UNARY_UNARY,
-                essence.service_pb2.Request,
-                essence.service_pb2.Result,
-            ),
-            '/continuum.Continuum/VelocityMove': grpclib.const.Handler(
-                self.VelocityMove,
+            '/continuum.Continuum/Tick': grpclib.const.Handler(
+                self.Tick,
                 grpclib.const.Cardinality.UNARY_UNARY,
                 essence.service_pb2.Request,
                 essence.service_pb2.Result,
@@ -43,15 +33,9 @@ class ContinuumBase(abc.ABC):
 class ContinuumStub:
 
     def __init__(self, channel: grpclib.client.Channel) -> None:
-        self.TimePass = grpclib.client.UnaryUnaryMethod(
+        self.Tick = grpclib.client.UnaryUnaryMethod(
             channel,
-            '/continuum.Continuum/TimePass',
-            essence.service_pb2.Request,
-            essence.service_pb2.Result,
-        )
-        self.VelocityMove = grpclib.client.UnaryUnaryMethod(
-            channel,
-            '/continuum.Continuum/VelocityMove',
+            '/continuum.Continuum/Tick',
             essence.service_pb2.Request,
             essence.service_pb2.Result,
         )

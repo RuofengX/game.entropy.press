@@ -20,7 +20,7 @@ const (
 	_ = protoimpl.EnforceVersion(protoimpl.MaxVersion - 20)
 )
 
-type Fragment struct {
+type Property struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
@@ -32,8 +32,8 @@ type Fragment struct {
 	YV    float32 `protobuf:"fixed32,5,opt,name=y_v,json=yV,proto3" json:"y_v,omitempty"`
 }
 
-func (x *Fragment) Reset() {
-	*x = Fragment{}
+func (x *Property) Reset() {
+	*x = Property{}
 	if protoimpl.UnsafeEnabled {
 		mi := &file_essence_velocity_proto_msgTypes[0]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
@@ -41,13 +41,13 @@ func (x *Fragment) Reset() {
 	}
 }
 
-func (x *Fragment) String() string {
+func (x *Property) String() string {
 	return protoimpl.X.MessageStringOf(x)
 }
 
-func (*Fragment) ProtoMessage() {}
+func (*Property) ProtoMessage() {}
 
-func (x *Fragment) ProtoReflect() protoreflect.Message {
+func (x *Property) ProtoReflect() protoreflect.Message {
 	mi := &file_essence_velocity_proto_msgTypes[0]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
@@ -59,40 +59,40 @@ func (x *Fragment) ProtoReflect() protoreflect.Message {
 	return mi.MessageOf(x)
 }
 
-// Deprecated: Use Fragment.ProtoReflect.Descriptor instead.
-func (*Fragment) Descriptor() ([]byte, []int) {
+// Deprecated: Use Property.ProtoReflect.Descriptor instead.
+func (*Property) Descriptor() ([]byte, []int) {
 	return file_essence_velocity_proto_rawDescGZIP(), []int{0}
 }
 
-func (x *Fragment) GetDelta() *Delta {
+func (x *Property) GetDelta() *Delta {
 	if x != nil {
 		return x.Delta
 	}
 	return nil
 }
 
-func (x *Fragment) GetX() float32 {
+func (x *Property) GetX() float32 {
 	if x != nil {
 		return x.X
 	}
 	return 0
 }
 
-func (x *Fragment) GetY() float32 {
+func (x *Property) GetY() float32 {
 	if x != nil {
 		return x.Y
 	}
 	return 0
 }
 
-func (x *Fragment) GetXV() float32 {
+func (x *Property) GetXV() float32 {
 	if x != nil {
 		return x.XV
 	}
 	return 0
 }
 
-func (x *Fragment) GetYV() float32 {
+func (x *Property) GetYV() float32 {
 	if x != nil {
 		return x.YV
 	}
@@ -159,7 +159,7 @@ var File_essence_velocity_proto protoreflect.FileDescriptor
 var file_essence_velocity_proto_rawDesc = []byte{
 	0x0a, 0x16, 0x65, 0x73, 0x73, 0x65, 0x6e, 0x63, 0x65, 0x2f, 0x76, 0x65, 0x6c, 0x6f, 0x63, 0x69,
 	0x74, 0x79, 0x2e, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x12, 0x04, 0x76, 0x65, 0x6c, 0x6f, 0x22, 0x6b,
-	0x0a, 0x08, 0x46, 0x72, 0x61, 0x67, 0x6d, 0x65, 0x6e, 0x74, 0x12, 0x21, 0x0a, 0x05, 0x64, 0x65,
+	0x0a, 0x08, 0x50, 0x72, 0x6f, 0x70, 0x65, 0x72, 0x74, 0x79, 0x12, 0x21, 0x0a, 0x05, 0x64, 0x65,
 	0x6c, 0x74, 0x61, 0x18, 0x01, 0x20, 0x01, 0x28, 0x0b, 0x32, 0x0b, 0x2e, 0x76, 0x65, 0x6c, 0x6f,
 	0x2e, 0x44, 0x65, 0x6c, 0x74, 0x61, 0x52, 0x05, 0x64, 0x65, 0x6c, 0x74, 0x61, 0x12, 0x0c, 0x0a,
 	0x01, 0x78, 0x18, 0x02, 0x20, 0x01, 0x28, 0x02, 0x52, 0x01, 0x78, 0x12, 0x0c, 0x0a, 0x01, 0x79,
@@ -187,11 +187,11 @@ func file_essence_velocity_proto_rawDescGZIP() []byte {
 
 var file_essence_velocity_proto_msgTypes = make([]protoimpl.MessageInfo, 2)
 var file_essence_velocity_proto_goTypes = []interface{}{
-	(*Fragment)(nil), // 0: velo.Fragment
+	(*Property)(nil), // 0: velo.Property
 	(*Delta)(nil),    // 1: velo.Delta
 }
 var file_essence_velocity_proto_depIdxs = []int32{
-	1, // 0: velo.Fragment.delta:type_name -> velo.Delta
+	1, // 0: velo.Property.delta:type_name -> velo.Delta
 	1, // [1:1] is the sub-list for method output_type
 	1, // [1:1] is the sub-list for method input_type
 	1, // [1:1] is the sub-list for extension type_name
@@ -206,7 +206,7 @@ func file_essence_velocity_proto_init() {
 	}
 	if !protoimpl.UnsafeEnabled {
 		file_essence_velocity_proto_msgTypes[0].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*Fragment); i {
+			switch v := v.(*Property); i {
 			case 0:
 				return &v.state
 			case 1:

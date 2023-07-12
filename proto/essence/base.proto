@@ -9,14 +9,15 @@ import "essence/velocity.proto";
 message Entity{  // 一个模块计算所需的所有数据
   // 哈希字段
   uint64 ID = 1;  // ID
-  reserved 2;  // 保留字段
+  reserved 2;
 
-  // 承载字段
-  time.Fragment time = 3;  // 时间grpc_out
-  velo.Fragment velo = 4;  // 空间
+  time.Property time = 3;  // 时间
+  time.Delta time_d = 4;
+  velo.Property velo = 5;  // 空间
+  velo.Delta velo_d = 6;
+  
 }
 
-
-message Field{  // 对应一个特定的包含很多实体的场
+message Space{
   repeated Entity entity = 1;
 }

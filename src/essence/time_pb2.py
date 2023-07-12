@@ -13,7 +13,7 @@ _sym_db = _symbol_database.Default()
 
 
 
-DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\x12\x65ssence/time.proto\x12\x04time\"B\n\x08\x46ragment\x12\x1a\n\x05\x64\x65lta\x18\x01 \x01(\x0b\x32\x0b.time.Delta\x12\x0b\n\x03\x61ge\x18\x02 \x01(\x04\x12\r\n\x05speed\x18\x03 \x01(\x04\"\x17\n\x05\x44\x65lta\x12\x0e\n\x06time_a\x18\x01 \x01(\x04\x42\x1bZ\x19jormungandr/v2/proto/timeb\x06proto3')
+DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\x12\x65ssence/time.proto\x12\x04time\"B\n\x08Property\x12\x1a\n\x05\x64\x65lta\x18\x01 \x01(\x0b\x32\x0b.time.Delta\x12\x0b\n\x03\x61ge\x18\x02 \x01(\x04\x12\r\n\x05speed\x18\x03 \x01(\x04\"\x17\n\x05\x44\x65lta\x12\x0e\n\x06time_a\x18\x01 \x01(\x04\x42\x1bZ\x19jormungandr/v2/proto/timeb\x06proto3')
 
 _globals = globals()
 _builder.BuildMessageAndEnumDescriptors(DESCRIPTOR, _globals)
@@ -22,8 +22,8 @@ if _descriptor._USE_C_DESCRIPTORS == False:
 
   DESCRIPTOR._options = None
   DESCRIPTOR._serialized_options = b'Z\031jormungandr/v2/proto/time'
-  _globals['_FRAGMENT']._serialized_start=28
-  _globals['_FRAGMENT']._serialized_end=94
+  _globals['_PROPERTY']._serialized_start=28
+  _globals['_PROPERTY']._serialized_end=94
   _globals['_DELTA']._serialized_start=96
   _globals['_DELTA']._serialized_end=119
 # @@protoc_insertion_point(module_scope)
