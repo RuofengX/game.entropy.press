@@ -8,18 +8,14 @@ from typing import ClassVar as _ClassVar, Mapping as _Mapping, Optional as _Opti
 DESCRIPTOR: _descriptor.FileDescriptor
 
 class Entity(_message.Message):
-    __slots__ = ["ID", "time", "time_d", "velo", "velo_d"]
+    __slots__ = ["ID", "time", "velo"]
     ID_FIELD_NUMBER: _ClassVar[int]
     TIME_FIELD_NUMBER: _ClassVar[int]
-    TIME_D_FIELD_NUMBER: _ClassVar[int]
     VELO_FIELD_NUMBER: _ClassVar[int]
-    VELO_D_FIELD_NUMBER: _ClassVar[int]
     ID: int
     time: _time_pb2.Property
-    time_d: _time_pb2.Delta
     velo: _velocity_pb2.Property
-    velo_d: _velocity_pb2.Delta
-    def __init__(self, ID: _Optional[int] = ..., time: _Optional[_Union[_time_pb2.Property, _Mapping]] = ..., time_d: _Optional[_Union[_time_pb2.Delta, _Mapping]] = ..., velo: _Optional[_Union[_velocity_pb2.Property, _Mapping]] = ..., velo_d: _Optional[_Union[_velocity_pb2.Delta, _Mapping]] = ...) -> None: ...
+    def __init__(self, ID: _Optional[int] = ..., time: _Optional[_Union[_time_pb2.Property, _Mapping]] = ..., velo: _Optional[_Union[_velocity_pb2.Property, _Mapping]] = ...) -> None: ...
 
 class Space(_message.Message):
     __slots__ = ["entity"]

@@ -6,6 +6,7 @@ import typing
 
 import grpclib.const
 import grpclib.client
+
 if typing.TYPE_CHECKING:
     import grpclib.server
 
@@ -14,14 +15,16 @@ import essence.service_pb2
 
 
 class ContinuumBase(abc.ABC):
-
     @abc.abstractmethod
-    async def Tick(self, stream: 'grpclib.server.Stream[essence.service_pb2.Request, essence.service_pb2.Result]') -> None:
+    async def Tick(
+        self,
+        stream: "grpclib.server.Stream[essence.service_pb2.Request, essence.service_pb2.Result]",
+    ) -> None:
         pass
 
     def __mapping__(self) -> typing.Dict[str, grpclib.const.Handler]:
         return {
-            '/continuum.Continuum/Tick': grpclib.const.Handler(
+            "/continuum.Continuum/Tick": grpclib.const.Handler(
                 self.Tick,
                 grpclib.const.Cardinality.UNARY_UNARY,
                 essence.service_pb2.Request,
@@ -31,11 +34,10 @@ class ContinuumBase(abc.ABC):
 
 
 class ContinuumStub:
-
     def __init__(self, channel: grpclib.client.Channel) -> None:
         self.Tick = grpclib.client.UnaryUnaryMethod(
             channel,
-            '/continuum.Continuum/Tick',
+            "/continuum.Continuum/Tick",
             essence.service_pb2.Request,
             essence.service_pb2.Result,
         )

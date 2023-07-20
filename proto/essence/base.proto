@@ -13,9 +13,7 @@ message Entity{  // 一个模块计算所需的所有数据
   reserved 2;
 
   time.Property time = 3;  // 时间
-  time.Delta time_d = 4;
-  velo.Property velo = 5;  // 空间
-  velo.Delta velo_d = 6;
+  velo.Property velo = 4;  // 空间
 }
 
 message Space{

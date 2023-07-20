@@ -16,9 +16,9 @@ func TestAdd(t *testing.T) {
         Time: &time.Property{
             Age: 0,
             Speed: 0,
-        },
-        TimeD: &time.Delta{
-            TimeA: 1,
+            Delta: &time.Delta{
+                TimeA: 1,
+            },
         },
     }
     space.Entity[1] = test_ent
