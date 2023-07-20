@@ -3,7 +3,7 @@ from essence import velocity_pb2 as _velocity_pb2
 from google.protobuf.internal import containers as _containers
 from google.protobuf import descriptor as _descriptor
 from google.protobuf import message as _message
-from typing import ClassVar as _ClassVar, Iterable as _Iterable, Mapping as _Mapping, Optional as _Optional, Union as _Union
+from typing import ClassVar as _ClassVar, Mapping as _Mapping, Optional as _Optional, Union as _Union
 
 DESCRIPTOR: _descriptor.FileDescriptor
 
@@ -23,6 +23,13 @@ class Entity(_message.Message):
 
 class Space(_message.Message):
     __slots__ = ["entity"]
+    class EntityEntry(_message.Message):
+        __slots__ = ["key", "value"]
+        KEY_FIELD_NUMBER: _ClassVar[int]
+        VALUE_FIELD_NUMBER: _ClassVar[int]
+        key: int
+        value: Entity
+        def __init__(self, key: _Optional[int] = ..., value: _Optional[_Union[Entity, _Mapping]] = ...) -> None: ...
     ENTITY_FIELD_NUMBER: _ClassVar[int]
-    entity: _containers.RepeatedCompositeFieldContainer[Entity]
-    def __init__(self, entity: _Optional[_Iterable[_Union[Entity, _Mapping]]] = ...) -> None: ...
+    entity: _containers.MessageMap[int, Entity]
+    def __init__(self, entity: _Optional[_Mapping[int, Entity]] = ...) -> None: ...

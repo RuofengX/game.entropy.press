@@ -2,7 +2,6 @@ package jormungandr
 
 import (
 	"net"
-	"sync"
 
 	"golang.org/x/net/context"
 	"google.golang.org/grpc"
@@ -12,7 +11,6 @@ import (
 
 	"jormungandr/v2/errors"
 	ctum "jormungandr/v2/proto/continuum"
-	"jormungandr/v2/runner"
 )
 
 const (
@@ -29,17 +27,8 @@ const (
 type Service struct {
 	ctum.UnimplementedContinuumServer
 
-	// 实现有状态的运行器，兼容状态缓存
-	runner []*runner.Ticker
-}
-
-func NewService()(*Service){
-	return &Service{
-		runner: {
-			runner.TimeRunner{}, 
-			runner.VelocityRunner{},
-		},
-	}
+	// 实现有状态的运行器，兼容未来可能的状态缓存
+	handle Handler
 }
 
 // 对请求进行应用级预处理
@@ -52,21 +41,14 @@ func (s Service) preParse(in *ctum.Request) error {
 
 // 对所有runner传入所有信息
 func (s Service) Tick(ctx context.Context, in *ctum.Request) (*ctum.Result, error) {
-	spaceFragment := new(chan *base.Space)
-	wg := sync.WaitGroup{}
-	// 对所有runner，分别传入space
-	for _, r := range s.runner{
-		wg.Add(1)
-		go func(r runner.Ticker) {
-			defer wg.Done()
-			epoch := 1
-			limit := int(req.Iteration)
-			space := in.Space
-			runner.Handle(
-
-			)
-		}(r)
-	return rtn
+	err := s.preParse(in)
+	if err != nil {
+		return nil, err
+	}
+	rtn := &ctum.Result{
+		History: s.handle.MultiTick(in.Space, in.Iteration),
+	}
+	return rtn, nil
 }
 
 // ...

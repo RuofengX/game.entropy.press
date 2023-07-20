@@ -6,6 +6,7 @@ option go_package="jormungandr/v2/proto/base";
 import "essence/time.proto";
 import "essence/velocity.proto";
 
+// 实体
 message Entity{  // 一个模块计算所需的所有数据
   // 哈希字段
   uint64 ID = 1;  // ID
@@ -15,9 +16,8 @@ message Entity{  // 一个模块计算所需的所有数据
   time.Delta time_d = 4;
   velo.Property velo = 5;  // 空间
   velo.Delta velo_d = 6;
-  
 }
 
 message Space{
-  repeated Entity entity = 1;
+  map<uint64, Entity> entity = 1;
 }
