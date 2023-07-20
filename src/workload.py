@@ -18,7 +18,7 @@ class Parser:
         stub = service_grpc.ContinuumStub(self._channel)  # type:ignore
 
         return (
-            await stub.Tick(  # FIXME: 异步实现有问题,尝试用protoc官方插件编译python，用mypy插件编译pyi
+            await stub.Tick(  # FIXME: Issue happens here.
                 Request(
                     iteration=epoch,
                     space=space,
