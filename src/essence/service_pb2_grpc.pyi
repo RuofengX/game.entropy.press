@@ -20,15 +20,15 @@ class _ServicerContext(grpc.ServicerContext, grpc.aio.ServicerContext):  # type:
 class ContinuumStub:
     def __init__(self, channel: typing.Union[grpc.Channel, grpc.aio.Channel]) -> None: ...
     Tick: grpc.UnaryUnaryMultiCallable[
-        essence.service_pb2.Request,
-        essence.service_pb2.Result,
+        essence.service_pb2.TickRequest,
+        essence.service_pb2.HistoryResult,
     ]
     """单个Tick，一次性发送/返回"""
 
 class ContinuumAsyncStub:
     Tick: grpc.aio.UnaryUnaryMultiCallable[
-        essence.service_pb2.Request,
-        essence.service_pb2.Result,
+        essence.service_pb2.TickRequest,
+        essence.service_pb2.HistoryResult,
     ]
     """单个Tick，一次性发送/返回"""
 
@@ -36,9 +36,9 @@ class ContinuumServicer(metaclass=abc.ABCMeta):
     @abc.abstractmethod
     def Tick(
         self,
-        request: essence.service_pb2.Request,
+        request: essence.service_pb2.TickRequest,
         context: _ServicerContext,
-    ) -> typing.Union[essence.service_pb2.Result, collections.abc.Awaitable[essence.service_pb2.Result]]:
+    ) -> typing.Union[essence.service_pb2.HistoryResult, collections.abc.Awaitable[essence.service_pb2.HistoryResult]]:
         """单个Tick，一次性发送/返回"""
 
 def add_ContinuumServicer_to_server(servicer: ContinuumServicer, server: typing.Union[grpc.Server, grpc.aio.Server]) -> None: ...

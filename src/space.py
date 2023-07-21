@@ -1,9 +1,11 @@
+from collections import deque
 import asyncio
 import json
 from typing import overload
 
 
 from essence import base_pb2
+from essence import time_pb2
 from essence.base_pb2 import Entity
 
 from workload import Parser
@@ -33,11 +35,7 @@ class Space:
                 entity={
                     1: Entity(  # 第一推动，也即原初实体
                         ID=1,  # 第一推动是1而不是0，0没有含义
-                        time={
-                            "age": 0,
-                            "speed": 0,
-                            "delta": {"time_a": 1},
-                        },
+                        time=time_pb2.Property(delta=time_pb2.Delta(time_a=1)),
                     ),
                 }
             )
@@ -52,7 +50,7 @@ class Space:
         Returns:
             int: 空间的年龄
         """
-        return self.data.entity[0].time.age
+        return self.data.entity[1].time.age
 
     @property
     def capacity(self) -> int:
@@ -119,23 +117,15 @@ class Space:
 
 
 class Continuum:
-    # TODO:
     def __init__(self):
-        self.age = 0
-        self.history: dict[int, Space] = {0: Space()}
-
+        self.history: deque[Space] = deque((Space(),), maxlen=30)
         self._parser = Parser()
 
-    def get_latest(self) -> Space:
-        return self.history[self.age]
-
     async def tick(self):
-
-        _space = await self._parser.tick(self.get_latest().to_pb2())
+        _space = await self._parser.tick(self.history[-1].to_pb2())
         new_space = Space.from_pb2(pb=_space)
 
-        self.age += 1
-        self.history[self.age] = new_space
+        self.history.append(new_space)
 
     async def run(self):
         async with self._parser:

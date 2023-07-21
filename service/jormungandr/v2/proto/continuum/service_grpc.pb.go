@@ -22,7 +22,7 @@ const _ = grpc.SupportPackageIsVersion7
 //
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
 type ContinuumClient interface {
-	Tick(ctx context.Context, in *Request, opts ...grpc.CallOption) (*Result, error)
+	Tick(ctx context.Context, in *TickRequest, opts ...grpc.CallOption) (*HistoryResult, error)
 }
 
 type continuumClient struct {
@@ -33,8 +33,8 @@ func NewContinuumClient(cc grpc.ClientConnInterface) ContinuumClient {
 	return &continuumClient{cc}
 }
 
-func (c *continuumClient) Tick(ctx context.Context, in *Request, opts ...grpc.CallOption) (*Result, error) {
-	out := new(Result)
+func (c *continuumClient) Tick(ctx context.Context, in *TickRequest, opts ...grpc.CallOption) (*HistoryResult, error) {
+	out := new(HistoryResult)
 	err := c.cc.Invoke(ctx, "/continuum.Continuum/Tick", in, out, opts...)
 	if err != nil {
 		return nil, err
@@ -46,7 +46,7 @@ func (c *continuumClient) Tick(ctx context.Context, in *Request, opts ...grpc.Ca
 // All implementations must embed UnimplementedContinuumServer
 // for forward compatibility
 type ContinuumServer interface {
-	Tick(context.Context, *Request) (*Result, error)
+	Tick(context.Context, *TickRequest) (*HistoryResult, error)
 	mustEmbedUnimplementedContinuumServer()
 }
 
@@ -54,7 +54,7 @@ type ContinuumServer interface {
 type UnimplementedContinuumServer struct {
 }
 
-func (UnimplementedContinuumServer) Tick(context.Context, *Request) (*Result, error) {
+func (UnimplementedContinuumServer) Tick(context.Context, *TickRequest) (*HistoryResult, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method Tick not implemented")
 }
 func (UnimplementedContinuumServer) mustEmbedUnimplementedContinuumServer() {}
@@ -71,7 +71,7 @@ func RegisterContinuumServer(s grpc.ServiceRegistrar, srv ContinuumServer) {
 }
 
 func _Continuum_Tick_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(Request)
+	in := new(TickRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
@@ -83,7 +83,7 @@ func _Continuum_Tick_Handler(srv interface{}, ctx context.Context, dec func(inte
 		FullMethod: "/continuum.Continuum/Tick",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(ContinuumServer).Tick(ctx, req.(*Request))
+		return srv.(ContinuumServer).Tick(ctx, req.(*TickRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }

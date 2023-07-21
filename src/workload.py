@@ -1,8 +1,8 @@
 from typing import Iterable, Any
 import grpc.aio
 
-from essence import service_grpc
-from essence.service_pb2 import Request
+from essence import service_pb2_grpc as service_grpc
+from essence.service_pb2 import TickRequest
 from essence.base_pb2 import Space
 
 
@@ -14,17 +14,17 @@ class Parser:
     async def multi_tick(self, space: Space, epoch: int = 1) -> Iterable[Space]:
         if self._channel is None:
             raise RuntimeError("尚未准备好用于通信的Channel")
-        stub: service_grpc.ContinuumAsyncStub
-        stub = service_grpc.ContinuumStub(self._channel)  # type:ignore
+        stub: service_grpc.ContinuumAsyncStub = service_grpc.ContinuumStub(
+            self._channel
+        )  # type:ignore
 
-        return (
-            await stub.Tick(  # FIXME: Issue happens here.
-                Request(
-                    iteration=epoch,
-                    space=space,
-                )
+        result = await stub.Tick(
+            TickRequest(
+                iteration=epoch,
+                space=space,
             )
-        ).history
+        )
+        return result.history
 
     async def tick(self, space: Space) -> Space:
         return next(iter(await self.multi_tick(space, 1)))

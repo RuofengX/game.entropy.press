@@ -21,7 +21,7 @@ func TestAdd(t *testing.T) {
             },
         },
     }
-    space.Entity[1] = test_ent
+    space.Entity[test_ent.GetID()] = test_ent
 	result := jor.NewHandler().MultiTick(
         space,
         30,

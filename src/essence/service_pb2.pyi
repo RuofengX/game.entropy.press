@@ -6,7 +6,7 @@ from typing import ClassVar as _ClassVar, Iterable as _Iterable, Mapping as _Map
 
 DESCRIPTOR: _descriptor.FileDescriptor
 
-class Request(_message.Message):
+class TickRequest(_message.Message):
     __slots__ = ["iteration", "space"]
     ITERATION_FIELD_NUMBER: _ClassVar[int]
     SPACE_FIELD_NUMBER: _ClassVar[int]
@@ -14,7 +14,7 @@ class Request(_message.Message):
     space: _base_pb2.Space
     def __init__(self, iteration: _Optional[int] = ..., space: _Optional[_Union[_base_pb2.Space, _Mapping]] = ...) -> None: ...
 
-class Result(_message.Message):
+class HistoryResult(_message.Message):
     __slots__ = ["history"]
     HISTORY_FIELD_NUMBER: _ClassVar[int]
     history: _containers.RepeatedCompositeFieldContainer[_base_pb2.Space]

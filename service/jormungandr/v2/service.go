@@ -31,8 +31,14 @@ type Service struct {
 	handle Handler
 }
 
+func NewService() *Service {
+	return &Service{
+		handle: NewHandler(),
+	}
+}
+
 // 对请求进行应用级预处理
-func (s Service) preParse(in *ctum.Request) error {
+func (s *Service) preParse(in *ctum.TickRequest) error {
 	if in.Iteration >= MAX_ITERATION {
 		return errors.RequestTickTooBigError
 	}
@@ -40,12 +46,12 @@ func (s Service) preParse(in *ctum.Request) error {
 }
 
 // 对所有runner传入所有信息
-func (s Service) Tick(ctx context.Context, in *ctum.Request) (*ctum.Result, error) {
+func (s *Service) Tick(ctx context.Context, in *ctum.TickRequest) (*ctum.HistoryResult, error) {
 	err := s.preParse(in)
 	if err != nil {
 		return nil, err
 	}
-	rtn := &ctum.Result{
+	rtn := &ctum.HistoryResult{
 		History: s.handle.MultiTick(in.Space, in.Iteration),
 	}
 	return rtn, nil
@@ -61,7 +67,7 @@ func RecoveryInterceptor(ctx context.Context, req interface{}, info *grpc.UnaryS
 		if r := recover(); r != nil {
 			// 将 panic 转换为 gRPC 错误
 			err := status.Errorf(codes.Internal, "Internal server error")
-			panic(err)
+			println(err.Error())
 		}
 	}()
 
@@ -75,7 +81,7 @@ func StreamRecoveryInterceptor(srv interface{}, ss grpc.ServerStream, info *grpc
 		if r := recover(); r != nil {
 			// 将 panic 转换为 gRPC 错误
 			err := status.Errorf(codes.Internal, "Internal server error")
-			panic(err)
+			println(err.Error())
 		}
 	}()
 
@@ -84,11 +90,11 @@ func StreamRecoveryInterceptor(srv interface{}, ss grpc.ServerStream, info *grpc
 }
 
 // 启动并阻塞运行
-func (s Service) Start(lis net.Listener, use_reflection bool) {
+func (s *Service) Start(lis net.Listener, use_reflection bool) {
 
 	server := grpc.NewServer(
-		grpc.UnaryInterceptor(RecoveryInterceptor),
-		grpc.StreamInterceptor(StreamRecoveryInterceptor),
+	// grpc.UnaryInterceptor(RecoveryInterceptor),
+	// grpc.StreamInterceptor(StreamRecoveryInterceptor),
 	)
 
 	ctum.RegisterContinuumServer(server, s)
