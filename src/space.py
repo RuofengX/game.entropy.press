@@ -117,11 +117,12 @@ class Space:
 
 
 class Continuum:
+    """时间和空间结合"""
     def __init__(self):
         self.history: deque[Space] = deque((Space(),), maxlen=30)
         self._parser = Parser()
 
-    async def tick(self):
+    async def _tick(self):
         _space = await self._parser.tick(self.history[-1].to_pb2())
         new_space = Space.from_pb2(pb=_space)
 
@@ -130,7 +131,7 @@ class Continuum:
     async def run(self):
         async with self._parser:
             while 1:
-                await self.tick()
+                await self._tick()
 
     def save(self):
         ...
