@@ -3,7 +3,7 @@ syntax = "proto3";
 package velo;
 option go_package="jormungandr/v2/proto/velo";
 
-message Fragment{  // 运动的实体
+message Property{  // 运动的实体
   Delta delta = 1;
   float x = 2;
   float y = 3;

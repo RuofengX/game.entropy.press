@@ -22,8 +22,7 @@ const _ = grpc.SupportPackageIsVersion7
 //
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
 type ContinuumClient interface {
-	TimePass(ctx context.Context, in *Request, opts ...grpc.CallOption) (*Result, error)
-	VelocityMove(ctx context.Context, in *Request, opts ...grpc.CallOption) (*Result, error)
+	Tick(ctx context.Context, in *TickRequest, opts ...grpc.CallOption) (*HistoryResult, error)
 }
 
 type continuumClient struct {
@@ -34,18 +33,9 @@ func NewContinuumClient(cc grpc.ClientConnInterface) ContinuumClient {
 	return &continuumClient{cc}
 }
 
-func (c *continuumClient) TimePass(ctx context.Context, in *Request, opts ...grpc.CallOption) (*Result, error) {
-	out := new(Result)
-	err := c.cc.Invoke(ctx, "/continuum.Continuum/TimePass", in, out, opts...)
-	if err != nil {
-		return nil, err
-	}
-	return out, nil
-}
-
-func (c *continuumClient) VelocityMove(ctx context.Context, in *Request, opts ...grpc.CallOption) (*Result, error) {
-	out := new(Result)
-	err := c.cc.Invoke(ctx, "/continuum.Continuum/VelocityMove", in, out, opts...)
+func (c *continuumClient) Tick(ctx context.Context, in *TickRequest, opts ...grpc.CallOption) (*HistoryResult, error) {
+	out := new(HistoryResult)
+	err := c.cc.Invoke(ctx, "/continuum.Continuum/Tick", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -56,8 +46,7 @@ func (c *continuumClient) VelocityMove(ctx context.Context, in *Request, opts ..
 // All implementations must embed UnimplementedContinuumServer
 // for forward compatibility
 type ContinuumServer interface {
-	TimePass(context.Context, *Request) (*Result, error)
-	VelocityMove(context.Context, *Request) (*Result, error)
+	Tick(context.Context, *TickRequest) (*HistoryResult, error)
 	mustEmbedUnimplementedContinuumServer()
 }
 
@@ -65,11 +54,8 @@ type ContinuumServer interface {
 type UnimplementedContinuumServer struct {
 }
 
-func (UnimplementedContinuumServer) TimePass(context.Context, *Request) (*Result, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method TimePass not implemented")
-}
-func (UnimplementedContinuumServer) VelocityMove(context.Context, *Request) (*Result, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method VelocityMove not implemented")
+func (UnimplementedContinuumServer) Tick(context.Context, *TickRequest) (*HistoryResult, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method Tick not implemented")
 }
 func (UnimplementedContinuumServer) mustEmbedUnimplementedContinuumServer() {}
 
@@ -84,38 +70,20 @@ func RegisterContinuumServer(s grpc.ServiceRegistrar, srv ContinuumServer) {
 	s.RegisterService(&Continuum_ServiceDesc, srv)
 }
 
-func _Continuum_TimePass_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(Request)
+func _Continuum_Tick_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(TickRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(ContinuumServer).TimePass(ctx, in)
+		return srv.(ContinuumServer).Tick(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/continuum.Continuum/TimePass",
+		FullMethod: "/continuum.Continuum/Tick",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(ContinuumServer).TimePass(ctx, req.(*Request))
-	}
-	return interceptor(ctx, in, info, handler)
-}
-
-func _Continuum_VelocityMove_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(Request)
-	if err := dec(in); err != nil {
-		return nil, err
-	}
-	if interceptor == nil {
-		return srv.(ContinuumServer).VelocityMove(ctx, in)
-	}
-	info := &grpc.UnaryServerInfo{
-		Server:     srv,
-		FullMethod: "/continuum.Continuum/VelocityMove",
-	}
-	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(ContinuumServer).VelocityMove(ctx, req.(*Request))
+		return srv.(ContinuumServer).Tick(ctx, req.(*TickRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -128,12 +96,8 @@ var Continuum_ServiceDesc = grpc.ServiceDesc{
 	HandlerType: (*ContinuumServer)(nil),
 	Methods: []grpc.MethodDesc{
 		{
-			MethodName: "TimePass",
-			Handler:    _Continuum_TimePass_Handler,
-		},
-		{
-			MethodName: "VelocityMove",
-			Handler:    _Continuum_VelocityMove_Handler,
+			MethodName: "Tick",
+			Handler:    _Continuum_Tick_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

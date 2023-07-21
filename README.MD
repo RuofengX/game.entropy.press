@@ -1,9 +1,9 @@
-# 耶·梦·加·得
-## Jormungandr
+#  星途旅程
 
-开放世界游戏
+## COSMOS 
+Chronicles of Stellar Mythology and Otherworldly Sagas
 
-### 部分特色
+### （酝酿中的）游戏特色
 - 太空歌剧
 - “耶梦加得”分布式微服务引擎
 - 时间回溯，即时因果推测

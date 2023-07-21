@@ -20,7 +20,7 @@ const (
 	_ = protoimpl.EnforceVersion(protoimpl.MaxVersion - 20)
 )
 
-type Fragment struct {
+type Property struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
@@ -30,8 +30,8 @@ type Fragment struct {
 	Speed uint64 `protobuf:"varint,3,opt,name=speed,proto3" json:"speed,omitempty"`
 }
 
-func (x *Fragment) Reset() {
-	*x = Fragment{}
+func (x *Property) Reset() {
+	*x = Property{}
 	if protoimpl.UnsafeEnabled {
 		mi := &file_essence_time_proto_msgTypes[0]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
@@ -39,13 +39,13 @@ func (x *Fragment) Reset() {
 	}
 }
 
-func (x *Fragment) String() string {
+func (x *Property) String() string {
 	return protoimpl.X.MessageStringOf(x)
 }
 
-func (*Fragment) ProtoMessage() {}
+func (*Property) ProtoMessage() {}
 
-func (x *Fragment) ProtoReflect() protoreflect.Message {
+func (x *Property) ProtoReflect() protoreflect.Message {
 	mi := &file_essence_time_proto_msgTypes[0]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
@@ -57,26 +57,26 @@ func (x *Fragment) ProtoReflect() protoreflect.Message {
 	return mi.MessageOf(x)
 }
 
-// Deprecated: Use Fragment.ProtoReflect.Descriptor instead.
-func (*Fragment) Descriptor() ([]byte, []int) {
+// Deprecated: Use Property.ProtoReflect.Descriptor instead.
+func (*Property) Descriptor() ([]byte, []int) {
 	return file_essence_time_proto_rawDescGZIP(), []int{0}
 }
 
-func (x *Fragment) GetDelta() *Delta {
+func (x *Property) GetDelta() *Delta {
 	if x != nil {
 		return x.Delta
 	}
 	return nil
 }
 
-func (x *Fragment) GetAge() uint64 {
+func (x *Property) GetAge() uint64 {
 	if x != nil {
 		return x.Age
 	}
 	return 0
 }
 
-func (x *Fragment) GetSpeed() uint64 {
+func (x *Property) GetSpeed() uint64 {
 	if x != nil {
 		return x.Speed
 	}
@@ -134,8 +134,8 @@ var File_essence_time_proto protoreflect.FileDescriptor
 
 var file_essence_time_proto_rawDesc = []byte{
 	0x0a, 0x12, 0x65, 0x73, 0x73, 0x65, 0x6e, 0x63, 0x65, 0x2f, 0x74, 0x69, 0x6d, 0x65, 0x2e, 0x70,
-	0x72, 0x6f, 0x74, 0x6f, 0x12, 0x04, 0x74, 0x69, 0x6d, 0x65, 0x22, 0x55, 0x0a, 0x08, 0x46, 0x72,
-	0x61, 0x67, 0x6d, 0x65, 0x6e, 0x74, 0x12, 0x21, 0x0a, 0x05, 0x64, 0x65, 0x6c, 0x74, 0x61, 0x18,
+	0x72, 0x6f, 0x74, 0x6f, 0x12, 0x04, 0x74, 0x69, 0x6d, 0x65, 0x22, 0x55, 0x0a, 0x08, 0x50, 0x72,
+	0x6f, 0x70, 0x65, 0x72, 0x74, 0x79, 0x12, 0x21, 0x0a, 0x05, 0x64, 0x65, 0x6c, 0x74, 0x61, 0x18,
 	0x01, 0x20, 0x01, 0x28, 0x0b, 0x32, 0x0b, 0x2e, 0x74, 0x69, 0x6d, 0x65, 0x2e, 0x44, 0x65, 0x6c,
 	0x74, 0x61, 0x52, 0x05, 0x64, 0x65, 0x6c, 0x74, 0x61, 0x12, 0x10, 0x0a, 0x03, 0x61, 0x67, 0x65,
 	0x18, 0x02, 0x20, 0x01, 0x28, 0x04, 0x52, 0x03, 0x61, 0x67, 0x65, 0x12, 0x14, 0x0a, 0x05, 0x73,
@@ -161,11 +161,11 @@ func file_essence_time_proto_rawDescGZIP() []byte {
 
 var file_essence_time_proto_msgTypes = make([]protoimpl.MessageInfo, 2)
 var file_essence_time_proto_goTypes = []interface{}{
-	(*Fragment)(nil), // 0: time.Fragment
+	(*Property)(nil), // 0: time.Property
 	(*Delta)(nil),    // 1: time.Delta
 }
 var file_essence_time_proto_depIdxs = []int32{
-	1, // 0: time.Fragment.delta:type_name -> time.Delta
+	1, // 0: time.Property.delta:type_name -> time.Delta
 	1, // [1:1] is the sub-list for method output_type
 	1, // [1:1] is the sub-list for method input_type
 	1, // [1:1] is the sub-list for extension type_name
@@ -180,7 +180,7 @@ func file_essence_time_proto_init() {
 	}
 	if !protoimpl.UnsafeEnabled {
 		file_essence_time_proto_msgTypes[0].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*Fragment); i {
+			switch v := v.(*Property); i {
 			case 0:
 				return &v.state
 			case 1:

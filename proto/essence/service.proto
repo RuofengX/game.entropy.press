@@ -5,18 +5,17 @@ option go_package="jormungandr/v2/proto/continuum";
 
 import "essence/base.proto";
 
-message Request{
-  uint32 nest_tick = 1;  // 一次调用多个tick
-  base.Field field = 2;  // 场，包含所有实体
+message TickRequest{
+  uint32 iteration = 1;  // 迭代次数
+  base.Space space = 2;  // 场，包含所有实体
 }
 
-message Result{
-  repeated base.Field history = 1;  // 一次返回多个tick
+message HistoryResult{
+  repeated base.Space history = 1;  // 一次返回多个tick
 }
 
 service Continuum{
-  rpc TimePass(Request) returns (Result);
-  rpc VelocityMove(Request) returns (Result);
+  rpc Tick(TickRequest) returns (HistoryResult);  // 单个Tick，一次性发送/返回
   // TODO: 使用stream计数，减少返回延迟
   // TODO: 新rpc，处理双向流，只传输必要的数据，一步到位
 }
