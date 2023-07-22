@@ -5,7 +5,7 @@ Chronicles of Stellar Mythology and Otherworldly Sagas
 
 ### （酝酿中的）游戏特色
 - 太空歌剧
-- “耶梦加得”分布式微服务引擎
+- 分布式微服务引擎
 - 时间回溯，即时因果推测
 
 ### 变因系统
