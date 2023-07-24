@@ -9,7 +9,7 @@ type veloRunner struct {
 }
 
 func (t *veloRunner) Tick(s *base.Space) *base.Space {
-	SyncTick(
+	AsyncTick(
 		s,
 		func(ent *base.Entity) {
 			ent.Velo.XV += ent.Velo.Delta.XA

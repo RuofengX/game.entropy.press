@@ -2,6 +2,7 @@ package jormungandr
 
 import (
 	"jormungandr/v2/proto/base"
+	"jormungandr/v2/runner"
 )
 
 type Handler interface {
@@ -18,3 +19,8 @@ type Handler interface {
 type Runner interface {
 	Tick(*base.Space) *base.Space
 }
+
+// 编译时检查
+var _ Handler = NewHandler()
+var _ Runner = runner.NewTimeRunner()
+var _ Runner = runner.NewVeloRunner()

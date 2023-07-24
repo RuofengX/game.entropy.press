@@ -63,7 +63,7 @@ func TestVelo(t *testing.T) {
 			YV: -1,
 			Delta: &velo.Delta{
 				XA: 0,
-				YA: 1000,
+				YA: -1000,
 			},
 		}
 
@@ -74,7 +74,7 @@ func TestVelo(t *testing.T) {
 		30,
 	)
 	targetX := float32(30)
-	targetY := float32(-29969)
+	targetY := float32(-30029)
 
 	for i := 0; i < 10; i++ {
 		ID := uint64(i)
