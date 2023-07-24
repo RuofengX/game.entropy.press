@@ -4,8 +4,6 @@ import (
 	"jormungandr/v2/proto/base"
 )
 
-// type HistoryPipe = chan *base.Space
-
 type Handler interface {
 	// 输入的是一个Space的引用
 	// 将输入复制一份

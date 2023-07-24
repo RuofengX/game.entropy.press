@@ -24,21 +24,21 @@ const (
 )
 
 // 一个服务代理类，将grpc来流分发给函数计算
-type Service struct {
+type continuumServer struct {
 	ctum.UnimplementedContinuumServer
 
 	// 实现有状态的运行器，兼容未来可能的状态缓存
 	handle Handler
 }
 
-func NewService() *Service {
-	return &Service{
+func NewService() *continuumServer {
+	return &continuumServer{
 		handle: NewHandler(),
 	}
 }
 
 // 对请求进行应用级预处理
-func (s *Service) preParse(in *ctum.TickRequest) error {
+func (s *continuumServer) preParse(in *ctum.TickRequest) error {
 	if in.Iteration >= MAX_ITERATION {
 		return errors.RequestTickTooBigError
 	}
@@ -46,7 +46,7 @@ func (s *Service) preParse(in *ctum.TickRequest) error {
 }
 
 // 对所有runner传入所有信息
-func (s *Service) Tick(ctx context.Context, in *ctum.TickRequest) (*ctum.HistoryResult, error) {
+func (s *continuumServer) Tick(ctx context.Context, in *ctum.TickRequest) (*ctum.HistoryResult, error) {
 	err := s.preParse(in)
 	if err != nil {
 		return nil, err
@@ -90,7 +90,7 @@ func StreamRecoveryInterceptor(srv interface{}, ss grpc.ServerStream, info *grpc
 }
 
 // 启动并阻塞运行
-func (s *Service) Start(lis net.Listener, use_reflection bool) {
+func (s *continuumServer) Start(lis net.Listener, use_reflection bool) {
 
 	server := grpc.NewServer(
 	// grpc.UnaryInterceptor(RecoveryInterceptor),
