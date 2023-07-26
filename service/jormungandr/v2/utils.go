@@ -14,7 +14,7 @@ func NewEmptySpace() *base.Space {
 }
 
 func NewEmptyEntity(ID uint64) *base.Entity {
-	return &base.Entity{
+	rtn := &base.Entity{
 		ID: ID,
 		Time: &time.Property{
 			Age:   0,
@@ -46,4 +46,6 @@ func NewEmptyEntity(ID uint64) *base.Entity {
 			},
 		},
 	}
+
+	return rtn
 }
