@@ -2,6 +2,7 @@ package jormungandr
 
 import (
 	"jormungandr/v2/proto/base"
+	"jormungandr/v2/proto/structure"
 	"jormungandr/v2/proto/time"
 	"jormungandr/v2/proto/velo"
 )
@@ -30,6 +31,18 @@ func NewEmptyEntity(ID uint64) *base.Entity {
 			Delta: &velo.Delta{
 				XA: 0,
 				YA: 0,
+			},
+		},
+		Structure: &structure.Property{
+			Destroy:        false,
+			Health:         1,
+			Structure:      0,
+			Shield:         0,
+			ShieldRecovery: 0,
+			Delta: &structure.Delta{
+				HealthA:         0,
+				StructureA:      0,
+				ShieldRecoveryA: 0,
 			},
 		},
 	}
