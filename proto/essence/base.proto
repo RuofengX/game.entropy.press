@@ -5,6 +5,7 @@ option go_package="jormungandr/v2/proto/base";
 
 import "essence/time.proto";
 import "essence/velocity.proto";
+import "essence/struct.proto";
 
 // 实体
 message Entity{  // 一个模块计算所需的所有数据
@@ -14,6 +15,8 @@ message Entity{  // 一个模块计算所需的所有数据
 
   time.Property time = 3;  // 时间
   velo.Property velo = 4;  // 空间
+  struct.Property struct = 5; // 结构
+
 }
 
 message Space{
