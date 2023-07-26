@@ -2,6 +2,7 @@ package runner
 
 import (
 	"jormungandr/v2/proto/base"
+	"jormungandr/v2/proto/structure"
 )
 
 type structRunner struct {
@@ -14,13 +15,13 @@ func (t *structRunner) Tick(s *base.Space) *base.Space {
 		func(e *base.Entity) {
 			// 可选字段
 			// 包含可选字段是常态，没有可选字段是特例
-			if e.Structure == nil{
+			if e.Structure == nil {
 				return
 			}
-			if e.Structure.Destroy{
+			if e.Structure.Destroy {
 				return
 			}
-			if e.Structure.Health <= 0{
+			if e.Structure.Health <= 0 {
 				e.Structure.Destroy = true
 				return
 			}
@@ -30,6 +31,11 @@ func (t *structRunner) Tick(s *base.Space) *base.Space {
 			e.Structure.Health += e.Structure.Delta.HealthA
 			e.Structure.Structure += e.Structure.Delta.StructureA
 			e.Structure.Shield += e.Structure.ShieldRecovery
+
+			e.Structure.Delta = &structure.Delta{
+
+			}
+
 		},
 	)
 	return s
