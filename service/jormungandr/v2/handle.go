@@ -14,11 +14,8 @@ type handler struct {
 	AssociateRunner []Runner // 有关联的Runner，需要顺序执行
 }
 
-// 运行一次，返回新宇宙的指针
-func (hand *handler) Tick(src *base.Space) *base.Space {
-	// 这样做可以保持修改的Space都不是原本的，而是内部的，可以直接返回这个Space的指针
-	s := proto.Clone(src).(*base.Space)
-
+// 对s运行一次全量的tick
+func (hand *handler) UpdateTick(s *base.Space) {
 	// Isolate异步执行
 	wg := new(sync.WaitGroup)
 	for _, ir := range hand.IsolateRunner {
@@ -36,7 +33,13 @@ func (hand *handler) Tick(src *base.Space) *base.Space {
 	for _, r := range hand.AssociateRunner {
 		r.Tick(s)
 	}
+}
 
+// 运行一次，返回新宇宙的指针
+func (hand *handler) Tick(src *base.Space) *base.Space {
+	// 这样做可以保持修改的Space都不是原本的，而是内部的，可以直接返回这个Space的指针
+	s := proto.Clone(src).(*base.Space)
+	hand.UpdateTick(s)
 	return s
 }
 
