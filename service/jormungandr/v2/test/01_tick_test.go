@@ -101,12 +101,20 @@ func TestStructDestroy(t *testing.T) {
 		space.Entity[ID] = test_ent
 	}
 
+	// 准备一个扣血函数
+	debuff := func(s *base.Space){
+		for _, ent := range s.Entity{
+			ent.Structure.Delta.HealthA = -1
+		}
+	}
 	// 准备tick
 	hand := jor.NewHandler()
-	hand.Tick(space)
+	debuff(space)
+	hand.UpdateTick(space)
 
 	for i := 0; i < 10; i++ {
-		hand.Tick(space)
+		debuff(space)
+		hand.UpdateTick(space)
 
 		ID := uint64(i)
 		result := space.Entity[ID]

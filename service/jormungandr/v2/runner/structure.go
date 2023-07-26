@@ -2,7 +2,6 @@ package runner
 
 import (
 	"jormungandr/v2/proto/base"
-	"jormungandr/v2/proto/structure"
 )
 
 type structRunner struct {
@@ -26,15 +25,14 @@ func (t *structRunner) Tick(s *base.Space) *base.Space {
 				return
 			}
 
-			e.Structure.ShieldRecovery += e.Structure.Delta.ShieldRecoveryA
+			e.Structure.Shield += e.Structure.ShieldRecovery // 护盾自回复
 
-			e.Structure.Health += e.Structure.Delta.HealthA
-			e.Structure.Structure += e.Structure.Delta.StructureA
-			e.Structure.Shield += e.Structure.ShieldRecovery
+			e.Structure.Health += e.Structure.Delta.HealthA // 生命值回复
+			e.Structure.Structure += e.Structure.Delta.StructureA // 结构回复
 
-			e.Structure.Delta = &structure.Delta{
-
-			}
+			// 将Delta归零
+			e.Structure.Delta.HealthA = 0
+			e.Structure.Delta.StructureA = 0
 
 		},
 	)
