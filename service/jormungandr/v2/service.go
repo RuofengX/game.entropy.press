@@ -28,12 +28,12 @@ type continuumServer struct {
 	ctum.UnimplementedContinuumServer
 
 	// 实现有状态的运行器，兼容未来可能的状态缓存
-	handle Handler
+	hand *handler
 }
 
 func NewService() *continuumServer {
 	return &continuumServer{
-		handle: NewHandler(),
+		hand: NewHandler(),
 	}
 }
 
@@ -52,7 +52,7 @@ func (s *continuumServer) Tick(ctx context.Context, in *ctum.TickRequest) (*ctum
 		return nil, err
 	}
 	rtn := &ctum.HistoryResult{
-		History: s.handle.MultiTick(in.Space, in.Iteration),
+		History: s.hand.MultiTick(in.Space, in.Iteration),
 	}
 	return rtn, nil
 }

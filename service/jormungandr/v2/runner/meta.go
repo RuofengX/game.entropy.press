@@ -6,6 +6,10 @@ import (
 	"sync"
 )
 
+type Runner interface {
+	Tick(*base.Space) *base.Space
+}
+
 // 对s中的所有实体异步调用f方法
 func AsyncTick(s *base.Space, f func(*base.Entity)) {
 	wg := new(sync.WaitGroup)
@@ -40,3 +44,7 @@ func OptionalTick(name string, f func(*base.Entity)) func(*base.Entity) {
 		f(ent)
 	}
 }
+
+// 编译时检查
+var _ Runner = NewTimeRunner()
+var _ Runner = NewVeloRunner()

@@ -10,8 +10,8 @@ import (
 
 // 处理器，对每次的宇宙进行处理
 type handler struct {
-	IsolateRunner   []Runner // 独立的Runner，可任意并发执行
-	AssociateRunner []Runner // 有关联的Runner，需要顺序执行
+	IsolateRunner   []runner.Runner // 独立的Runner，可任意并发执行
+	AssociateRunner []runner.Runner // 有关联的Runner，需要顺序执行
 }
 
 // 对s运行一次全量的tick
@@ -20,7 +20,7 @@ func (hand *handler) UpdateTick(s *base.Space) {
 	wg := new(sync.WaitGroup)
 	for _, ir := range hand.IsolateRunner {
 		wg.Add(1)
-		go func(r Runner) {
+		go func(r runner.Runner) {
 			r.Tick(s)
 			wg.Done()
 		}(ir)
@@ -43,7 +43,7 @@ func (hand *handler) Tick(src *base.Space) *base.Space {
 	return s
 }
 
-func (hand handler) MultiTick(s *base.Space, times uint32) []*base.Space {
+func (hand *handler) MultiTick(s *base.Space, times uint32) []*base.Space {
 	var rtn []*base.Space
 	for i := 0; i < int(times); i++ {
 		s = hand.Tick(s)
@@ -53,16 +53,16 @@ func (hand handler) MultiTick(s *base.Space, times uint32) []*base.Space {
 }
 
 // 新建一个Handler，半动态地将Runner入系统
-func NewHandler() Handler {
+func NewHandler() *handler {
 	return &handler{
-		IsolateRunner: []Runner{
+		IsolateRunner: []runner.Runner{
 			runner.NewTimeRunner(),
 			runner.NewVeloRunner(),
 			runner.NewStructRunner(),
 			// TODO: 这里添加其他可独立运行没有依赖的Runner
 			// 未添加的Runner将不会运行
 		},
-		AssociateRunner: []Runner{},
+		AssociateRunner: []runner.Runner{},
 		// TODO: 这里添加其他需要关联运行或互相依赖的Runner
 	}
 }
