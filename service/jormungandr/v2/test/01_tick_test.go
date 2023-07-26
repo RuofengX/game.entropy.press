@@ -82,7 +82,36 @@ func TestVelo(t *testing.T) {
 
 		if resultVelo.X != targetX || resultVelo.Y != targetY {
 			t.Errorf("不正确的位置 %f,%f", resultVelo.X, resultVelo.Y)
-            // FIXME: BUG here
+		}
+	}
+}
+
+func TestStructDestroy(t *testing.T) {
+	space := &base.Space{
+		Entity: make(map[uint64]*base.Entity),
+	}
+
+	// 创建测试对象
+	for i := 0; i < 10; i++ {
+		ID := uint64(i)
+		test_ent := jor.NewEmptyEntity(ID)
+		test_ent.ID = ID
+		test_ent.Structure.Health = float32(i)
+
+		space.Entity[ID] = test_ent
+	}
+
+	// 准备tick
+	hand := jor.NewHandler()
+	hand.Tick(space)
+
+	for i := 0; i < 10; i++ {
+		hand.Tick(space)
+
+		ID := uint64(i)
+		result := space.Entity[ID]
+		if !result.Structure.Destroy {
+			t.Errorf("不正确的血量 %d,%f", result.ID, result.Structure.Health)
 		}
 	}
 }

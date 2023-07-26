@@ -55,6 +55,7 @@ func NewHandler() Handler {
 		IsolateRunner: []Runner{
 			runner.NewTimeRunner(),
 			runner.NewVeloRunner(),
+			runner.NewStructRunner(),
 			// TODO: 这里添加其他可独立运行没有依赖的Runner
 			// 未添加的Runner将不会运行
 		},
