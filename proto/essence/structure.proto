@@ -1,0 +1,18 @@
+syntax = "proto3";
+
+package struct;
+option go_package="jormungandr/v2/proto/struct";
+
+message Property{  // 有结构的实体 
+  Delta delta = 1;
+  float health = 2; // 生命值
+  float struct = 3; // 护甲值
+  float shield = 4; // 护盾值
+  float shield_recovery = 5; //护盾回复速度
+}
+
+message Delta{
+  float health_a = 1; // 生命变化值
+  float struct_a = 2; // 护甲变化值
+  float shield_recovery_a = 3; // 护盾回复修正系数
+}
