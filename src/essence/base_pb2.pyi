@@ -9,16 +9,16 @@ from typing import ClassVar as _ClassVar, Mapping as _Mapping, Optional as _Opti
 DESCRIPTOR: _descriptor.FileDescriptor
 
 class Entity(_message.Message):
-    __slots__ = ["ID", "time", "velo", "struct"]
+    __slots__ = ["ID", "time", "velo", "structure"]
     ID_FIELD_NUMBER: _ClassVar[int]
     TIME_FIELD_NUMBER: _ClassVar[int]
     VELO_FIELD_NUMBER: _ClassVar[int]
-    STRUCT_FIELD_NUMBER: _ClassVar[int]
+    STRUCTURE_FIELD_NUMBER: _ClassVar[int]
     ID: int
     time: _time_pb2.Property
     velo: _velocity_pb2.Property
-    struct: _structure_pb2.Property
-    def __init__(self, ID: _Optional[int] = ..., time: _Optional[_Union[_time_pb2.Property, _Mapping]] = ..., velo: _Optional[_Union[_velocity_pb2.Property, _Mapping]] = ..., struct: _Optional[_Union[_structure_pb2.Property, _Mapping]] = ...) -> None: ...
+    structure: _structure_pb2.Property
+    def __init__(self, ID: _Optional[int] = ..., time: _Optional[_Union[_time_pb2.Property, _Mapping]] = ..., velo: _Optional[_Union[_velocity_pb2.Property, _Mapping]] = ..., structure: _Optional[_Union[_structure_pb2.Property, _Mapping]] = ...) -> None: ...
 
 class Space(_message.Message):
     __slots__ = ["entity"]

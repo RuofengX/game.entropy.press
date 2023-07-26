@@ -12,19 +12,19 @@ func (t *structRunner) Tick(s *base.Space) *base.Space {
 	AsyncTick(
 		s,
 		func(e *base.Entity) {
-			if e.Struct.Destroy{
+			if e.Structure.Destroy{
 				return
 			}
-			if e.Struct.Health <= 0{
-				e.Struct.Destroy = true
+			if e.Structure.Health <= 0{
+				e.Structure.Destroy = true
 				return
 			}
 
-			e.Struct.ShieldRecovery += e.Struct.Delta.ShieldRecoveryA
+			e.Structure.ShieldRecovery += e.Structure.Delta.ShieldRecoveryA
 
-			e.Struct.Health += e.Struct.Delta.HealthA
-			e.Struct.Struct += e.Struct.Delta.StructA
-			e.Struct.Shield += e.Struct.ShieldRecovery
+			e.Structure.Health += e.Structure.Delta.HealthA
+			e.Structure.Structure += e.Structure.Delta.StructureA
+			e.Structure.Shield += e.Structure.ShieldRecovery
 		},
 	)
 	return s

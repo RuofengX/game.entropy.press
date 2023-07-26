@@ -1,19 +1,19 @@
 syntax = "proto3";
 
-package struct;
-option go_package="jormungandr/v2/proto/struct";
+package structure;
+option go_package="jormungandr/v2/proto/structure";
 
 message Property{  // 有结构系统的实体 
   Delta delta = 1;
   bool destroy = 2; // 是否摧毁(结构系统而言) 换言之没有struct属性的实体不会被摧毁
   float health = 3; // 生命值
-  float struct = 4; // 护甲值
+  float structure = 4; // 护甲值
   float shield = 5; // 护盾值
   float shield_recovery = 6; //护盾回复速度
 }
 
 message Delta{
   float health_a = 1; // 生命变化值
-  float struct_a = 2; // 护甲变化值
+  float structure_a = 2; // 护甲变化值
   float shield_recovery_a = 3; // 护盾回复修正系数
 }

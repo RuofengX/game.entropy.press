@@ -13,7 +13,7 @@ _sym_db = _symbol_database.Default()
 
 
 
-DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\x17\x65ssence/structure.proto\x12\x06struct\"\x82\x01\n\x08Property\x12\x1c\n\x05\x64\x65lta\x18\x01 \x01(\x0b\x32\r.struct.Delta\x12\x0f\n\x07\x64\x65stroy\x18\x02 \x01(\x08\x12\x0e\n\x06health\x18\x03 \x01(\x02\x12\x0e\n\x06struct\x18\x04 \x01(\x02\x12\x0e\n\x06shield\x18\x05 \x01(\x02\x12\x17\n\x0fshield_recovery\x18\x06 \x01(\x02\"F\n\x05\x44\x65lta\x12\x10\n\x08health_a\x18\x01 \x01(\x02\x12\x10\n\x08struct_a\x18\x02 \x01(\x02\x12\x19\n\x11shield_recovery_a\x18\x03 \x01(\x02\x42\x1dZ\x1bjormungandr/v2/proto/structb\x06proto3')
+DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\x17\x65ssence/structure.proto\x12\tstructure\"\x88\x01\n\x08Property\x12\x1f\n\x05\x64\x65lta\x18\x01 \x01(\x0b\x32\x10.structure.Delta\x12\x0f\n\x07\x64\x65stroy\x18\x02 \x01(\x08\x12\x0e\n\x06health\x18\x03 \x01(\x02\x12\x11\n\tstructure\x18\x04 \x01(\x02\x12\x0e\n\x06shield\x18\x05 \x01(\x02\x12\x17\n\x0fshield_recovery\x18\x06 \x01(\x02\"I\n\x05\x44\x65lta\x12\x10\n\x08health_a\x18\x01 \x01(\x02\x12\x13\n\x0bstructure_a\x18\x02 \x01(\x02\x12\x19\n\x11shield_recovery_a\x18\x03 \x01(\x02\x42 Z\x1ejormungandr/v2/proto/structureb\x06proto3')
 
 _globals = globals()
 _builder.BuildMessageAndEnumDescriptors(DESCRIPTOR, _globals)
@@ -21,9 +21,9 @@ _builder.BuildTopDescriptorsAndMessages(DESCRIPTOR, 'essence.structure_pb2', _gl
 if _descriptor._USE_C_DESCRIPTORS == False:
 
   DESCRIPTOR._options = None
-  DESCRIPTOR._serialized_options = b'Z\033jormungandr/v2/proto/struct'
-  _globals['_PROPERTY']._serialized_start=36
-  _globals['_PROPERTY']._serialized_end=166
-  _globals['_DELTA']._serialized_start=168
-  _globals['_DELTA']._serialized_end=238
+  DESCRIPTOR._serialized_options = b'Z\036jormungandr/v2/proto/structure'
+  _globals['_PROPERTY']._serialized_start=39
+  _globals['_PROPERTY']._serialized_end=175
+  _globals['_DELTA']._serialized_start=177
+  _globals['_DELTA']._serialized_end=250
 # @@protoc_insertion_point(module_scope)
