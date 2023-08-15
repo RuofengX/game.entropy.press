@@ -5,27 +5,41 @@ from typing import ClassVar as _ClassVar, Mapping as _Mapping, Optional as _Opti
 DESCRIPTOR: _descriptor.FileDescriptor
 
 class Property(_message.Message):
-    __slots__ = ["delta", "destroy", "health", "structure", "shield", "shield_recovery"]
+    __slots__ = ["delta", "destroy", "health", "injury"]
     DELTA_FIELD_NUMBER: _ClassVar[int]
     DESTROY_FIELD_NUMBER: _ClassVar[int]
     HEALTH_FIELD_NUMBER: _ClassVar[int]
-    STRUCTURE_FIELD_NUMBER: _ClassVar[int]
-    SHIELD_FIELD_NUMBER: _ClassVar[int]
-    SHIELD_RECOVERY_FIELD_NUMBER: _ClassVar[int]
+    INJURY_FIELD_NUMBER: _ClassVar[int]
     delta: Delta
     destroy: bool
-    health: float
-    structure: float
+    health: Health
+    injury: Injury
+    def __init__(self, delta: _Optional[_Union[Delta, _Mapping]] = ..., destroy: bool = ..., health: _Optional[_Union[Health, _Mapping]] = ..., injury: _Optional[_Union[Injury, _Mapping]] = ...) -> None: ...
+
+class Health(_message.Message):
+    __slots__ = ["body", "armor", "shield"]
+    BODY_FIELD_NUMBER: _ClassVar[int]
+    ARMOR_FIELD_NUMBER: _ClassVar[int]
+    SHIELD_FIELD_NUMBER: _ClassVar[int]
+    body: float
+    armor: float
     shield: float
-    shield_recovery: float
-    def __init__(self, delta: _Optional[_Union[Delta, _Mapping]] = ..., destroy: bool = ..., health: _Optional[float] = ..., structure: _Optional[float] = ..., shield: _Optional[float] = ..., shield_recovery: _Optional[float] = ...) -> None: ...
+    def __init__(self, body: _Optional[float] = ..., armor: _Optional[float] = ..., shield: _Optional[float] = ...) -> None: ...
+
+class Injury(_message.Message):
+    __slots__ = ["injurable", "damage", "radius", "direct"]
+    INJURABLE_FIELD_NUMBER: _ClassVar[int]
+    DAMAGE_FIELD_NUMBER: _ClassVar[int]
+    RADIUS_FIELD_NUMBER: _ClassVar[int]
+    DIRECT_FIELD_NUMBER: _ClassVar[int]
+    injurable: bool
+    damage: Health
+    radius: float
+    direct: int
+    def __init__(self, injurable: bool = ..., damage: _Optional[_Union[Health, _Mapping]] = ..., radius: _Optional[float] = ..., direct: _Optional[int] = ...) -> None: ...
 
 class Delta(_message.Message):
-    __slots__ = ["health_a", "structure_a", "shield_recovery_a"]
+    __slots__ = ["health_a"]
     HEALTH_A_FIELD_NUMBER: _ClassVar[int]
-    STRUCTURE_A_FIELD_NUMBER: _ClassVar[int]
-    SHIELD_RECOVERY_A_FIELD_NUMBER: _ClassVar[int]
-    health_a: float
-    structure_a: float
-    shield_recovery_a: float
-    def __init__(self, health_a: _Optional[float] = ..., structure_a: _Optional[float] = ..., shield_recovery_a: _Optional[float] = ...) -> None: ...
+    health_a: Health
+    def __init__(self, health_a: _Optional[_Union[Health, _Mapping]] = ...) -> None: ...

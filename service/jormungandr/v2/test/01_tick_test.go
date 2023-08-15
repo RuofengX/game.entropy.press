@@ -3,6 +3,7 @@ package jormungandr_test
 import (
 	jor "jormungandr/v2"
 	"jormungandr/v2/proto/base"
+	"jormungandr/v2/proto/structure"
 	"jormungandr/v2/proto/time"
 	"jormungandr/v2/proto/velo"
 	"testing"
@@ -73,8 +74,8 @@ func TestVelo(t *testing.T) {
 		space,
 		30,
 	)
-	targetX := float32(30)
-	targetY := float32(-30029)
+	targetX := float64(30)
+	targetY := float64(-30029)
 
 	for i := 0; i < 10; i++ {
 		ID := uint64(i)
@@ -96,15 +97,23 @@ func TestStructDestroy(t *testing.T) {
 		ID := uint64(i)
 		test_ent := jor.NewEmptyEntity(ID)
 		test_ent.ID = ID
-		test_ent.Structure.Health = float32(i)
+		test_ent.Structure.Health = &structure.Health{
+			Body:   1,
+			Armor:  0,
+			Shield: 0,
+		}
 
 		space.Entity[ID] = test_ent
 	}
 
 	// 准备一个扣血函数
-	debuff := func(s *base.Space){
-		for _, ent := range s.Entity{
-			ent.Structure.Delta.HealthA = -1
+	debuff := func(s *base.Space) {
+		for _, ent := range s.Entity {
+			ent.Structure.Delta.HealthA = &structure.Health{
+				Body:   -1,
+				Armor:  0,
+				Shield: 0,
+			}
 		}
 	}
 	// 准备tick
@@ -119,7 +128,7 @@ func TestStructDestroy(t *testing.T) {
 		ID := uint64(i)
 		result := space.Entity[ID]
 		if !result.Structure.Destroy {
-			t.Errorf("不正确的血量 %d,%f", result.ID, result.Structure.Health)
+			t.Errorf("不正确的血量 %d,%f", result.ID, result.Structure.Health.Body)
 		}
 	}
 }

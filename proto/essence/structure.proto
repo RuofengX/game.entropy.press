@@ -3,17 +3,29 @@ syntax = "proto3";
 package structure;
 option go_package="jormungandr/v2/proto/structure";
 
-message Property{  // 有结构系统的实体 
+message Property{ // 有结构系统的实体 
   Delta delta = 1;
-  bool destroy = 2; // 是否摧毁(结构系统而言) 换言之没有struct属性的实体不会被摧毁
-  float health = 3; // 生命值
-  float structure = 4; // 护甲值
-  float shield = 5; // 护盾值
-  float shield_recovery = 6; //护盾回复速度
+  bool destroy = 2; // 该结构是否摧毁
+  Health health = 3; // 生命值
+  Injury injury = 4; // 伤害（其他实体）相关
+}
+
+message Health{ // 结构数值
+  float body = 1; // 实体本身
+  float armor = 2; // 护甲
+  float shield = 3; // 护盾
+
+}
+
+message Injury{ // 伤害其他实体
+  bool injurable = 1; // 是否可伤害其他实体
+  Health damage = 2; // 造成伤害的数值
+  oneof way {  // 伤害的方式
+    double radius = 101; // 范围伤害的范围
+    uint64 direct = 102; // 直接伤害的目标ID
+  }
 }
 
 message Delta{
-  float health_a = 1; // 生命变化值
-  float structure_a = 2; // 护甲变化值
-  float shield_recovery_a = 3; // 护盾回复修正系数
+  Health health_a = 1; // 生命变化值
 }

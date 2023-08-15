@@ -25,9 +25,9 @@ func AsyncTick(s *base.Space, f func(*base.Entity)) {
 }
 
 // 对s中的所有实体有序调用f方法
-func SyncTick(s *base.Space, f func(*base.Entity)) {
+func SyncTick(s *base.Space, f func(*base.Space, *base.Entity)) {
 	for _, ent := range s.Entity {
-		f(ent)
+		f(s, ent)
 	}
 }
 

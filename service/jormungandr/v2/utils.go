@@ -34,15 +34,21 @@ func NewEmptyEntity(ID uint64) *base.Entity {
 			},
 		},
 		Structure: &structure.Property{
-			Destroy:        false,
-			Health:         1,
-			Structure:      0,
-			Shield:         0,
-			ShieldRecovery: 0,
+			Destroy: false,
+			Health: new(structure.Health),
+			Injury: &structure.Injury{
+				Injurable: false,
+				Damage: new(structure.Health),
+				Way: &structure.Injury_Direct{
+					Direct: 0,
+				},
+			},
 			Delta: &structure.Delta{
-				HealthA:         0,
-				StructureA:      0,
-				ShieldRecoveryA: 0,
+				HealthA: &structure.Health{
+				Body:   0,
+				Armor:  0,
+				Shield: 0,
+			},
 			},
 		},
 	}
