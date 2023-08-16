@@ -2,12 +2,13 @@ package runner
 
 import (
 	"errors"
-	"math"
 	"jormungandr/v2/proto/base"
+	"math"
+	"strings"
 )
 
 // 获取两个实体间的距离
-func getEntityDistance(e1 *base.Entity, e2 *base.Entity) float64{
+func getEntityDistance(e1 *base.Entity, e2 *base.Entity) float64 {
 	return math.Sqrt(math.Pow(e1.Velo.X-e2.Velo.X, 2) + math.Pow(e1.Velo.Y-e2.Velo.Y, 2))
 }
 
@@ -32,6 +33,7 @@ func GetDistance(s *base.Space, one uint64, other uint64) (float64, error) {
 // 获取附近的实体
 // 获取s空间中，编号为one的实体周围radius范围的实体列表
 // 返回：实体列表、错误
+// 注意：调用前，Velo相关的Tick必须完成，确保s.Grid是最新的
 // TODO: 需要对其性能测试
 // TODO: 最好加入缓存机制
 func GetNearby(s *base.Space, one uint64, radius float64) ([]uint64, error) {
@@ -42,6 +44,8 @@ func GetNearby(s *base.Space, one uint64, radius float64) ([]uint64, error) {
 
 	rtn := []uint64{}
 
+	cx, cy := parseChunkIndex(e1.Velo.ChunkIndex)
+
 	for index, e2 := range s.Entity {
 		dis := getEntityDistance(e1, e2)
 		if dis <= radius {
@@ -49,4 +53,9 @@ func GetNearby(s *base.Space, one uint64, radius float64) ([]uint64, error) {
 		}
 	}
 	return rtn, nil
+}
+
+func parseChunkIndex(indexStr string) (int64, int64) {
+	c := strings.SplitN(indexStr, ',', 2)
+	return int64(c[0]), int64(c[1])
 }

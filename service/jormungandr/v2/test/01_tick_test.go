@@ -6,6 +6,7 @@ import (
 	"jormungandr/v2/proto/structure"
 	"jormungandr/v2/proto/time"
 	"jormungandr/v2/proto/velo"
+	"strings"
 	"testing"
 )
 
@@ -128,5 +129,27 @@ func TestStructDestroy(t *testing.T) {
 		if !result.Structure.Destroy {
 			t.Errorf("不正确的血量 %d,%f", result.ID, result.Structure.Health.Body)
 		}
+	}
+}
+
+func TestGrid(t *testing.T) {
+	s := jor.NewEmptySpace()
+	e := jor.NewEmptyEntity(1)
+	e.Velo.X = 1023.9999  // 有趣的是当这里9非常多的时候，e的Grid会漂移到(1,0)中
+	e.Velo.Y = 2
+	s.Entity[1] = e
+
+	e2 := jor.NewEmptyEntity(2)
+	e2.Velo.X = 1024
+	e2.Velo.Y = 2
+	s.Entity[2] = e2
+
+	jor.NewHandler().UpdateTick(s)
+
+	if !strings.EqualFold("0,0", e.Velo.GetChunkIndex()) {
+		t.Errorf("实体错误的索引值%s", e.Velo.ChunkIndex)
+	}
+	if !strings.EqualFold("1,0", e2.Velo.GetChunkIndex()) {
+		t.Errorf("实体错误的索引值%s", e2.Velo.ChunkIndex)
 	}
 }
