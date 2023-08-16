@@ -5,18 +5,20 @@ from typing import ClassVar as _ClassVar, Mapping as _Mapping, Optional as _Opti
 DESCRIPTOR: _descriptor.FileDescriptor
 
 class Property(_message.Message):
-    __slots__ = ["delta", "x", "y", "x_v", "y_v"]
+    __slots__ = ["delta", "x", "y", "x_v", "y_v", "chunkIndex"]
     DELTA_FIELD_NUMBER: _ClassVar[int]
     X_FIELD_NUMBER: _ClassVar[int]
     Y_FIELD_NUMBER: _ClassVar[int]
     X_V_FIELD_NUMBER: _ClassVar[int]
     Y_V_FIELD_NUMBER: _ClassVar[int]
+    CHUNKINDEX_FIELD_NUMBER: _ClassVar[int]
     delta: Delta
     x: float
     y: float
     x_v: float
     y_v: float
-    def __init__(self, delta: _Optional[_Union[Delta, _Mapping]] = ..., x: _Optional[float] = ..., y: _Optional[float] = ..., x_v: _Optional[float] = ..., y_v: _Optional[float] = ...) -> None: ...
+    chunkIndex: str
+    def __init__(self, delta: _Optional[_Union[Delta, _Mapping]] = ..., x: _Optional[float] = ..., y: _Optional[float] = ..., x_v: _Optional[float] = ..., y_v: _Optional[float] = ..., chunkIndex: _Optional[str] = ...) -> None: ...
 
 class Delta(_message.Message):
     __slots__ = ["x_a", "y_a"]

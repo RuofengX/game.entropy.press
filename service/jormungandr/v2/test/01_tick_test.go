@@ -48,9 +48,7 @@ func TestAge(t *testing.T) {
 }
 
 func TestVelo(t *testing.T) {
-	space := &base.Space{
-		Entity: make(map[uint64]*base.Entity),
-	}
+	space := jor.NewEmptySpace()
 
 	// 创建测试对象
 	for i := 0; i < 10; i++ {

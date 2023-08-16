@@ -8,9 +8,11 @@ import (
 )
 
 func NewEmptySpace() *base.Space {
-	return &base.Space{
+	rtn := &base.Space{
 		Entity: make(map[uint64]*base.Entity),
+		Grid: make(map[string]*base.Chunk),
 	}
+	return rtn
 }
 
 func NewEmptyEntity(ID uint64) *base.Entity {
@@ -24,14 +26,12 @@ func NewEmptyEntity(ID uint64) *base.Entity {
 			},
 		},
 		Velo: &velo.Property{
+			Delta: new(velo.Delta),
 			X:  0,
 			Y:  0,
 			XV: 0,
 			YV: 0,
-			Delta: &velo.Delta{
-				XA: 0,
-				YA: 0,
-			},
+			ChunkIndex: "0,0",
 		},
 		Structure: &structure.Property{
 			Destroy: false,

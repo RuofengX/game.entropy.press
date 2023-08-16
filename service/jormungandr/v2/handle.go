@@ -14,8 +14,17 @@ type handler struct {
 	AssociateRunner []runner.Runner // 有关联的Runner，需要顺序执行
 }
 
-// 对s运行一次全量的tick
+// 对s运行一次全量的tick，修改元数据
 func (hand *handler) UpdateTick(s *base.Space) {
+	// 判断属性是否存在，如不存在则进行维护
+
+	// 将这些属性当作可选的
+	if s.Entity == nil{
+		// 宇宙内源死亡，不再有实体意味着不再tick
+		s.Entity = make(map[uint64]*base.Entity)
+		return
+	}
+
 	// Isolate异步执行
 	wg := new(sync.WaitGroup)
 	for _, ir := range hand.IsolateRunner {
@@ -35,10 +44,12 @@ func (hand *handler) UpdateTick(s *base.Space) {
 	}
 }
 
-// 运行一次，返回新宇宙的指针
+// 对src宇宙进行一次全量Tick，不修改src，返回新宇宙的指针
 func (hand *handler) Tick(src *base.Space) *base.Space {
 	// 这样做可以保持修改的Space都不是原本的，而是内部的，可以直接返回这个Space的指针
+	// 这里空的默认值将被proto删除，并置为空指针
 	s := proto.Clone(src).(*base.Space)
+
 	hand.UpdateTick(s)
 	return s
 }

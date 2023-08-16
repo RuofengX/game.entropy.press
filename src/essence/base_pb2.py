@@ -16,7 +16,7 @@ from essence import velocity_pb2 as essence_dot_velocity__pb2
 from essence import structure_pb2 as essence_dot_structure__pb2
 
 
-DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\x12\x65ssence/base.proto\x12\x04\x62\x61se\x1a\x12\x65ssence/time.proto\x1a\x16\x65ssence/velocity.proto\x1a\x17\x65ssence/structure.proto\"~\n\x06\x45ntity\x12\n\n\x02ID\x18\x01 \x01(\x04\x12\x1c\n\x04time\x18\x03 \x01(\x0b\x32\x0e.time.Property\x12\x1c\n\x04velo\x18\x04 \x01(\x0b\x32\x0e.velo.Property\x12&\n\tstructure\x18\x05 \x01(\x0b\x32\x13.structure.PropertyJ\x04\x08\x02\x10\x03\"m\n\x05Space\x12\'\n\x06\x65ntity\x18\x01 \x03(\x0b\x32\x17.base.Space.EntityEntry\x1a;\n\x0b\x45ntityEntry\x12\x0b\n\x03key\x18\x01 \x01(\x04\x12\x1b\n\x05value\x18\x02 \x01(\x0b\x32\x0c.base.Entity:\x02\x38\x01\x42\x1bZ\x19jormungandr/v2/proto/baseb\x06proto3')
+DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\x12\x65ssence/base.proto\x12\x04\x62\x61se\x1a\x12\x65ssence/time.proto\x1a\x16\x65ssence/velocity.proto\x1a\x17\x65ssence/structure.proto\"~\n\x06\x45ntity\x12\n\n\x02ID\x18\x01 \x01(\x04\x12\x1c\n\x04time\x18\x03 \x01(\x0b\x32\x0e.time.Property\x12\x1c\n\x04velo\x18\x04 \x01(\x0b\x32\x0e.velo.Property\x12&\n\tstructure\x18\x05 \x01(\x0b\x32\x13.structure.PropertyJ\x04\x08\x02\x10\x03\"\xcc\x01\n\x05Space\x12\'\n\x06\x65ntity\x18\x01 \x03(\x0b\x32\x17.base.Space.EntityEntry\x12#\n\x04Grid\x18\x02 \x03(\x0b\x32\x15.base.Space.GridEntry\x1a;\n\x0b\x45ntityEntry\x12\x0b\n\x03key\x18\x01 \x01(\x04\x12\x1b\n\x05value\x18\x02 \x01(\x0b\x32\x0c.base.Entity:\x02\x38\x01\x1a\x38\n\tGridEntry\x12\x0b\n\x03key\x18\x01 \x01(\t\x12\x1a\n\x05value\x18\x02 \x01(\x0b\x32\x0b.base.Chunk:\x02\x38\x01\"\x1d\n\x05\x43hunk\x12\x14\n\x0c\x65ntity_index\x18\x01 \x03(\x04\x42\x1bZ\x19jormungandr/v2/proto/baseb\x06proto3')
 
 _globals = globals()
 _builder.BuildMessageAndEnumDescriptors(DESCRIPTOR, _globals)
@@ -27,10 +27,16 @@ if _descriptor._USE_C_DESCRIPTORS == False:
   DESCRIPTOR._serialized_options = b'Z\031jormungandr/v2/proto/base'
   _SPACE_ENTITYENTRY._options = None
   _SPACE_ENTITYENTRY._serialized_options = b'8\001'
+  _SPACE_GRIDENTRY._options = None
+  _SPACE_GRIDENTRY._serialized_options = b'8\001'
   _globals['_ENTITY']._serialized_start=97
   _globals['_ENTITY']._serialized_end=223
-  _globals['_SPACE']._serialized_start=225
-  _globals['_SPACE']._serialized_end=334
-  _globals['_SPACE_ENTITYENTRY']._serialized_start=275
-  _globals['_SPACE_ENTITYENTRY']._serialized_end=334
+  _globals['_SPACE']._serialized_start=226
+  _globals['_SPACE']._serialized_end=430
+  _globals['_SPACE_ENTITYENTRY']._serialized_start=313
+  _globals['_SPACE_ENTITYENTRY']._serialized_end=372
+  _globals['_SPACE_GRIDENTRY']._serialized_start=374
+  _globals['_SPACE_GRIDENTRY']._serialized_end=430
+  _globals['_CHUNK']._serialized_start=432
+  _globals['_CHUNK']._serialized_end=461
 # @@protoc_insertion_point(module_scope)

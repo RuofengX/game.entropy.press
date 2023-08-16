@@ -13,7 +13,7 @@ _sym_db = _symbol_database.Default()
 
 
 
-DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\x16\x65ssence/velocity.proto\x12\x04velo\"V\n\x08Property\x12\x1a\n\x05\x64\x65lta\x18\x01 \x01(\x0b\x32\x0b.velo.Delta\x12\t\n\x01x\x18\x02 \x01(\x01\x12\t\n\x01y\x18\x03 \x01(\x01\x12\x0b\n\x03x_v\x18\x04 \x01(\x01\x12\x0b\n\x03y_v\x18\x05 \x01(\x01\"!\n\x05\x44\x65lta\x12\x0b\n\x03x_a\x18\x01 \x01(\x01\x12\x0b\n\x03y_a\x18\x02 \x01(\x01\x42\x1bZ\x19jormungandr/v2/proto/velob\x06proto3')
+DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\x16\x65ssence/velocity.proto\x12\x04velo\"j\n\x08Property\x12\x1a\n\x05\x64\x65lta\x18\x01 \x01(\x0b\x32\x0b.velo.Delta\x12\t\n\x01x\x18\x02 \x01(\x01\x12\t\n\x01y\x18\x03 \x01(\x01\x12\x0b\n\x03x_v\x18\x04 \x01(\x01\x12\x0b\n\x03y_v\x18\x05 \x01(\x01\x12\x12\n\nchunkIndex\x18\x06 \x01(\t\"!\n\x05\x44\x65lta\x12\x0b\n\x03x_a\x18\x01 \x01(\x01\x12\x0b\n\x03y_a\x18\x02 \x01(\x01\x42\x1bZ\x19jormungandr/v2/proto/velob\x06proto3')
 
 _globals = globals()
 _builder.BuildMessageAndEnumDescriptors(DESCRIPTOR, _globals)
@@ -23,7 +23,7 @@ if _descriptor._USE_C_DESCRIPTORS == False:
   DESCRIPTOR._options = None
   DESCRIPTOR._serialized_options = b'Z\031jormungandr/v2/proto/velo'
   _globals['_PROPERTY']._serialized_start=32
-  _globals['_PROPERTY']._serialized_end=118
-  _globals['_DELTA']._serialized_start=120
-  _globals['_DELTA']._serialized_end=153
+  _globals['_PROPERTY']._serialized_end=138
+  _globals['_DELTA']._serialized_start=140
+  _globals['_DELTA']._serialized_end=173
 # @@protoc_insertion_point(module_scope)

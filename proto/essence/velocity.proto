@@ -9,6 +9,7 @@ message Property{  // 运动的实体
   double y = 3;
   double x_v = 4;
   double y_v = 5;
+  string chunkIndex = 6;
 }
 
 message Delta{

@@ -21,4 +21,9 @@ message Entity{  // 一个模块计算所需的所有数据
 
 message Space{
   map<uint64, Entity> entity = 1;
+  map<string, Chunk> Grid = 2;
+}
+
+message Chunk{
+  repeated uint64 entity_index = 1;
 }
